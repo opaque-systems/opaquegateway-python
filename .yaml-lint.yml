@@ -1,0 +1,13 @@
+---
+extends: default
+
+rules:
+  truthy:
+    ignore: |
+      # The truthy rule is not relevant for GitHub Actions workflows,
+      # as the YAML syntax for it is a bit different from normal YAML
+      .github/*/*.yaml
+  # Set line length to warning because some bash commands are long
+  line-length:
+    max: 80
+    level: warning

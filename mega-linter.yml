@@ -1,0 +1,75 @@
+---
+# MegaLinter GitHub Action configuration file
+# More info at https://oxsecurity.github.io/megalinter
+name: MegaLinter
+
+# Run this workflow every time a new commit pushed to your repository
+on:
+  push:
+    branches:
+      - dev
+      - master
+  pull_request:
+    branches:
+      - dev
+      - release-*
+      - hotfix-*
+      - master
+
+env:
+  # Apply linter fixes configuration, see link for details
+  # https://oxsecurity.github.io/megalinter/latest/configuration/#apply-fixes
+  APPLY_FIXES: none # do not apply any fixes
+  APPLY_FIXES_EVENT: pull_request
+  APPLY_FIXES_MODE: commit
+
+# Only allow one run of this workflow per PR at a time.
+#
+# This will cancel any still-running workflows triggered by a previous commit to
+# this PR. Note this will not affect workflows triggered by a push (e.g. merging
+# a PR to `dev` or `master`).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: MegaLinter
+    runs-on: ubuntu-latest
+    steps:
+      # Git Checkout
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+          # If you use VALIDATE_ALL_CODEBASE = true,
+          # you can remove this line to improve performances
+          # fetch-depth: 0
+
+      # MegaLinter
+      - name: MegaLinter
+        id: ml
+        # You can override MegaLinter flavor used to have faster performances
+        # More info at https://oxsecurity.github.io/megalinter/flavors/
+        uses: oxsecurity/megalinter@v6
+        env:
+          # All available variables are described in documentation
+          # https://oxsecurity.github.io/megalinter/configuration/
+          # Set ${{ github.event_name ==
+          # 'push' && github.ref == 'refs/heads/main' }}
+          # to validate only diff with main branch
+          VALIDATE_ALL_CODEBASE: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_EXCLUDE: .*run-clang-tidy\.py
+          # ADD YOUR CUSTOM ENV VARIABLES HERE TO OVERRIDE VALUES
+          # OF .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
+
+      # Upload MegaLinter artifacts
+      - name: Archive production artifacts
+        if: ${{ success() }} || ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: MegaLinter reports
+          path: |
+            megalinter-reports
+            mega-linter.log

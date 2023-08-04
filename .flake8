@@ -1,0 +1,30 @@
+[flake8]
+ignore =
+    # E203: Whitespace before ':'
+    # Causing false positive on list slices
+    # https://github.com/PyCQA/pycodestyle/issues/373
+    E203,
+    # E266: Too many leading '#' for block comment
+    # This rule is too strict for comment blocks that we currently have
+    E266,
+    # E501: Line too long (82 > 79 characters)
+    # A lot of our lines go over this limit due to mandatory comments,
+    # such as the case of mypy ignores.
+    E501,
+    # W503: Line break occurred before a binary operator
+    # PEP8 now recommend line breaks should occur before the binary operator
+    W503
+exclude =
+    .git,
+    __pycache__,
+    rpc,
+    # sql: ignore our SQL code
+    sql,
+    # src: ignore linting our C++ library
+    src,
+    # tms: ignore our TMS code
+    tms,
+max-line-length = 79
+max-doc-length = 79
+max-complexity = 18
+select = B,C,E,F,W,T4,B9

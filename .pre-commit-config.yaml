@@ -1,0 +1,76 @@
+---
+repos:
+  - repo: https://github.com/ambv/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+        args: [--config=pyproject.toml]
+        language_version: python3
+        exclude: ^(sql/src/cpp/thirdparty/duckdb/.*)|(scripts/run-clang-tidy.py)
+  - repo: https://github.com/pycqa/flake8
+    rev: 5.0.4
+    hooks:
+      - id: flake8
+        exclude: ^(sql/src/cpp/thirdparty/duckdb/.*)|(scripts/run-clang-tidy.py)
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: v1.3.5
+    hooks:
+      - id: clang-format
+        args:
+          - -i
+          - --style=file
+          - --fallback-style=Chromium
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        files: "\\.(py)$"
+        args: [--settings-path=pyproject.toml]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.991
+    hooks:
+      - id: mypy
+        args:
+          - --ignore-missing-imports
+          - --follow-imports=silent
+        additional_dependencies: ['types-waitress']
+  # - repo: https://github.com/dustinsand/pre-commit-scala
+  #   rev: v0.0.1-beta
+  #   hooks:
+  #     - id: scalafmt
+  #       exclude: ^(client/demo/.*.scala)
+  #       args: [--config, .scalafmt.conf]
+  # - repo: https://github.com/cheshirekow/cmake-format-precommit
+  #   rev: v0.6.13
+  #   hooks:
+  #     - id: cmake-format
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.6.22
+    hooks:
+      - id: actionlint
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.28.0
+    hooks:
+      - id: yamllint
+        args: [-c=.yaml-lint.yml]
+  # - repo: local
+  #   hooks:
+  #     - id: go-mod-tidy
+  #       name: go-mod-tidy
+  #       entry: bash -c 'cd mp && go mod tidy'
+  #       language: golang
+  #     - id: golangci-lint
+  #       name: golangci-lint
+  #       description: Fast linters runner for Go.
+  #       entry: bash -c 'cd mp && golangci-lint run'
+  #       types: [go]
+  #       language: golang
+  #       files: ^mp/
+  #       pass_filenames: false
+  #     - id: sort-spelling-wordlist
+  #       name: sort-spelling-wordlist
+  #       description: Sort spelling wordlist
+  #       language: system
+  #       entry: bash -c 'sort -f docs/spelling_wordlist.txt
+  #         -o docs/spelling_wordlist.txt'
+  #       files: ^docs/spelling_wordlist.txt$
