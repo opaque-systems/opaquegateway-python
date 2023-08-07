@@ -29,34 +29,14 @@ line_length = 79  # must be to set to the same value as that in black
 # Global options:
 
 [tool.mypy]
-# disallow_untyped_defs = true # TODO (S1221): add this flag back when our python typedef is in better shape
+disallow_untyped_defs = true
 warn_unused_configs = true
-# warn_unused_ignores = true # TODO (S1221): add this flag back when our python typedef is in better shape
+warn_unused_ignores = true
 warn_unreachable = true
 
 # Per-module options:
 
 [[tool.mypy.overrides]]
-module = [
-  "azure.*",
-  "envyaml",
-  "grpc",
-  "gql.*",
-  "hadoop.*",
-  "jsonschema",
-  "knack.util",
-  "mock",
-  "msrestazure.*",
-  "numproto",
-  "OpenSSL",
-  "pandas",
-  "paramiko.*",
-  "psutil",
-  "pyarrow",
-  "pytz",
-  "requests.*",
-  "socketio",
-  "yaml"
-]
+module = ["requests"]
 # Ignore "missing library stubs or py.typed marker" for all the above modules
 ignore_missing_imports = true
