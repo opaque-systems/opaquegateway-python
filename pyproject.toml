@@ -1,0 +1,42 @@
+# ========== black - linter options ==========
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+# ========== isort - import sorting linter options ==========
+# https://pycqa.github.io/isort/index.html
+[tool.isort]
+# Use isort's default black linter profile:
+# https://pycqa.github.io/isort/docs/configuration/profiles.html
+profile = "black"
+filter_files = true
+line_length = 79  # must be to set to the same value as that in black
+
+# ========== mypy - type checker options ==========
+# Global options:
+
+[tool.mypy]
+disallow_untyped_defs = true
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_unreachable = true
+
+# Per-module options:
+
+[[tool.mypy.overrides]]
+module = ["requests"]
+# Ignore "missing library stubs or py.typed marker" for all the above modules
+ignore_missing_imports = true

@@ -1,0 +1,19 @@
+[flake8]
+ignore =
+    # E203: Whitespace before ':'
+    # Causing false positive on list slices
+    # https://github.com/PyCQA/pycodestyle/issues/373
+    E203,
+    # E266: Too many leading '#' for block comment
+    # This rule is too strict for comment blocks that we currently have
+    E266,
+    # W503: Line break occurred before a binary operator
+    # PEP8 now recommend line breaks should occur before the binary operator
+    W503
+exclude =
+    .git,
+    __pycache__,
+max-line-length = 79
+max-doc-length = 79
+max-complexity = 18
+select = B,C,E,F,W,T4,B9

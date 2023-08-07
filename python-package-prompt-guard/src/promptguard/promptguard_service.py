@@ -5,15 +5,17 @@ import json
 import os
 from dataclasses import dataclass
 from http import HTTPStatus
-from typing import Dict
-from promptguard.authentication import get_access_token
+from typing import Dict, Union
 
 import requests
+from promptguard.authentication import get_access_token
 
 # TODO: Once we have deployed the Promptguard Service this should be hardcoded
 # to use that domain, as end users shouldn't need to configure the
 # domain name manually.
-PROMPTGUARD_SERVICE_DOMAIN_NAME = os.environ.get("PROMPTGUARD_SERVICE_DOMAIN_NAME")
+PROMPTGUARD_SERVICE_DOMAIN_NAME = os.environ.get(
+    "PROMPTGUARD_SERVICE_DOMAIN_NAME"
+)
 
 
 @dataclass
@@ -38,7 +40,9 @@ def sanitize(text: str) -> SanitizeResponse:
         The anonymzied version of text without PII and
         a secret entropy value.
     """
-    response = _send_request_to_ppp_service(endpoint="sanitize", payload={"text": text})
+    response = _send_request_to_ppp_service(
+        endpoint="sanitize", payload={"text": text}
+    )
     return SanitizeResponse(**json.loads(response.text))
 
 
@@ -47,7 +51,9 @@ class DesanitizeResponse:
     desanitized_text: str
 
 
-def desanitize(sanitized_text: str, secret_entropy: bytes) -> DesanitizeResponse:
+def desanitize(
+    sanitized_text: str, secret_entropy: bytes
+) -> DesanitizeResponse:
     """
     Takes in a sanitized response and returns the desanitized
     text with PII added back to it.
@@ -67,7 +73,10 @@ def desanitize(sanitized_text: str, secret_entropy: bytes) -> DesanitizeResponse
     """
     response = _send_request_to_ppp_service(
         endpoint="desanitize",
-        payload={"sanitized_text": sanitized_text, "secret_entropy": secret_entropy},
+        payload={
+            "sanitized_text": sanitized_text,
+            "secret_entropy": secret_entropy,
+        },
     )
     return DesanitizeResponse(**json.loads(response.text))
 
@@ -76,7 +85,7 @@ def desanitize(sanitized_text: str, secret_entropy: bytes) -> DesanitizeResponse
 
 
 def _send_request_to_ppp_service(
-    endpoint: str, payload: Dict[str, str]
+    endpoint: str, payload: Dict[str, Union[str, bytes]]
 ) -> requests.Response:
     """
     Helper method which takes in the name of the endpoint, and a
