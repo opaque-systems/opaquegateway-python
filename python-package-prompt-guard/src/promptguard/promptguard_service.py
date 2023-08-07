@@ -6,14 +6,17 @@ import os
 from dataclasses import dataclass
 from http import HTTPStatus
 from typing import Dict
-from promptguard.authentication import get_access_token
 
 import requests
+from promptguard.authentication import get_access_token
 
 # TODO: Once we have deployed the Promptguard Service this should be hardcoded
 # to use that domain, as end users shouldn't need to configure the
 # domain name manually.
-PROMPTGUARD_SERVICE_DOMAIN_NAME = os.environ.get("PROMPTGUARD_SERVICE_DOMAIN_NAME")
+PROMPTGUARD_SERVICE_DOMAIN_NAME = os.environ.get(
+    "PROMPTGUARD_SERVICE_DOMAIN_NAME"
+)
+
 
 
 @dataclass
@@ -40,6 +43,7 @@ def sanitize(text: str) -> SanitizeResponse:
     """
     response = _send_request_to_ppp_service(endpoint="sanitize", payload={"text": text})
     return SanitizeResponse(**json.loads(response.text))
+
 
 
 @dataclass
