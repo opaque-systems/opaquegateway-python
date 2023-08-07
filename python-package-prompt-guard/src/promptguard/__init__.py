@@ -1,3 +1,3 @@
-from promptguard.ppp_service import anonymize, deanonymize
+from promptguard.ppp_service import sanitize, desanitize
 
-__all__ = ["anonymize", "deanonymize"]
+__all__ = ["sanitize", "desanitize"]
