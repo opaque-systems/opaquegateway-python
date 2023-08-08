@@ -1,3 +1,8 @@
-from promptguard.ppp_service import desanitize, sanitize
+from promptguard.promptguard_service import (
+    DesanitizeResponse,
+    SanitizeResponse,
+    desanitize,
+    sanitize,
+)
 
-__all__ = ["sanitize", "desanitize"]
+__all__ = ["desanitize", "DesanitizeResponse", "sanitize", "SanitizeResponse"]
