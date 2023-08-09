@@ -87,4 +87,4 @@ nav:
       - 'getting_started/quickstart.md'
       - 'getting_started/overview.md'
   - 'API Reference':
-      - 'api_reference/index.md'
+      - 'reference/library_api.md'

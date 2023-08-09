@@ -33,7 +33,7 @@ hide:
 
     See the API reference for the PromptGuard Python library.
 
-    [Learn more :octicons-arrow-right-24:](api_reference/library_api.md){: .right}
+    [Learn more :octicons-arrow-right-24:](reference/library_api.md){: .right}
 
 </div>
 
