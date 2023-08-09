@@ -21,7 +21,7 @@ PROMPTGUARD_SERVICE_DOMAIN_NAME = os.environ.get(
 @dataclass
 class SanitizeResponse:
     sanitized_text: str
-    secret_entropy: bytes
+    encoded_sanitize_context: bytes
 
 
 def sanitize(text: str) -> SanitizeResponse:
@@ -52,7 +52,7 @@ class DesanitizeResponse:
 
 
 def desanitize(
-    sanitized_text: str, secret_entropy: bytes
+    sanitized_text: str, encoded_sanitize_context: bytes
 ) -> DesanitizeResponse:
     """
     Takes in a sanitized response and returns the desanitized
@@ -62,7 +62,7 @@ def desanitize(
     ----------
     sanitized_text : str
         Sanitized response that you want to be desanitized.
-    secret_entropy : bytes
+    encoded_sanitize_context : bytes
         Secret entropy value that should have been returned by
         the call to `sanitize`.
 
@@ -75,7 +75,7 @@ def desanitize(
         endpoint="desanitize",
         payload={
             "sanitized_text": sanitized_text,
-            "secret_entropy": secret_entropy,
+            "encoded_sanitize_context": encoded_sanitize_context,
         },
     )
     return DesanitizeResponse(**json.loads(response.text))
