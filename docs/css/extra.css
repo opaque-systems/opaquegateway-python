@@ -1,0 +1,259 @@
+/* Taken from https://mkdocstrings.github.io/python/customization/ */
+/* Indentation. */
+div.doc-contents:not(.first) {
+  padding-left: 25px;
+  border-left: .05rem solid var(--md-typeset-table-color);
+}
+
+/* Mark external links as such. */
+a.autorefs-external::after {
+  /* https://primer.style/octicons/arrow-up-right-24 */
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="rgb(0, 0, 0)" d="M18.25 15.5a.75.75 0 00.75-.75v-9a.75.75 0 00-.75-.75h-9a.75.75 0 000 1.5h7.19L6.22 16.72a.75.75 0 101.06 1.06L17.5 7.56v7.19c0 .414.336.75.75.75z"></path></svg>');
+  content: ' ';
+
+  display: inline-block;
+  position: relative;
+  top: 0.1em;
+  margin-left: 0.2em;
+  margin-right: 0.1em;
+
+  height: 1em;
+  width: 1em;
+  border-radius: 100%;
+  background-color: var(--md-typeset-a-color);
+}
+
+a.autorefs-external:hover::after {
+  background-color: var(--md-accent-fg-color);
+}
+
+.hidden-warning {
+  display: none
+}
+
+/* The Read the Docs flyout is formatted with a font-size that is 90% of the
+body's. Material for MkDocs has a body font-size that is 0.5rem. This body
+font-size will result in the flyout having a font-size of 0.7rem, consistent
+with the font-size of other elements in the theme.
+*/
+body {
+  font-size: 0.777778rem;
+}
+
+/* Increase h2, h3, and h4 font size and reduce h4 font weight */
+.md-typeset h2 {
+  font-size: 1.7em;
+}
+
+.md-typeset h3 {
+  font-size: 1.4em;
+}
+
+.md-typeset h4 {
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+/* h6 for glossary terms */
+.md-typeset h6 {
+  font-size: 1em;
+  font-weight: 600;
+  color: #000000de;
+}
+
+/* Indent glossary definitions */
+.md-typeset h6~p,
+.md-typeset h6~ul {
+  padding-left: 1.25rem;
+}
+
+.md-typeset h6~ol {
+  padding-left: .75rem;
+}
+
+/* Unordered list <ul> symbols:
+ * Level 2 is a hollow circle
+ * Level 3 is a filled square
+*/
+article ul ul {
+  list-style-type: circle !important;
+}
+
+article ul ul ul {
+  list-style-type: square !important;
+}
+
+/* Grids */
+.md-typeset .grid {
+  grid-gap: .4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  margin: 1em 0
+}
+
+.md-typeset .grid.cards>ol,
+.md-typeset .grid.cards>ul {
+  display: contents
+}
+
+.md-typeset .grid.cards>ol>li,
+.md-typeset .grid.cards>ul>li,
+.md-typeset .grid>.card {
+  border: .05rem solid var(--md-default-fg-color--lightest);
+  border-radius: .1rem;
+  display: block;
+  margin: 0;
+  padding: .8rem;
+  transition: border .25s, box-shadow .25s
+}
+
+.md-typeset .grid.cards>ol>li:focus-within,
+.md-typeset .grid.cards>ol>li:hover,
+.md-typeset .grid.cards>ul>li:focus-within,
+.md-typeset .grid.cards>ul>li:hover,
+.md-typeset .grid>.card:focus-within,
+.md-typeset .grid>.card:hover {
+  border-color: #0000;
+  box-shadow: var(--md-shadow-z2)
+}
+
+.md-typeset .grid.cards>ol>li>hr,
+.md-typeset .grid.cards>ul>li>hr,
+.md-typeset .grid>.card>hr {
+  margin-bottom: 1em;
+  margin-top: 1em
+}
+
+.md-typeset .grid.cards>ol>li>:first-child,
+.md-typeset .grid.cards>ul>li>:first-child,
+.md-typeset .grid>.card>:first-child {
+  margin-top: 0
+}
+
+.md-typeset .grid.cards>ol>li>:last-child,
+.md-typeset .grid.cards>ul>li>:last-child,
+.md-typeset .grid>.card>:last-child {
+  margin-bottom: 0
+}
+
+.md-typeset .grid>*,
+.md-typeset .grid>.admonition,
+.md-typeset .grid>.highlight>*,
+.md-typeset .grid>.highlighttable,
+.md-typeset .grid>.md-typeset details,
+.md-typeset .grid>details,
+.md-typeset .grid>pre {
+  margin-bottom: 0;
+  margin-top: 0
+}
+
+.md-typeset .grid>.highlight>pre:only-child,
+.md-typeset .grid>.highlight>pre>code,
+.md-typeset .grid>.highlighttable,
+.md-typeset .grid>.highlighttable>tbody,
+.md-typeset .grid>.highlighttable>tbody>tr,
+.md-typeset .grid>.highlighttable>tbody>tr>.code,
+.md-typeset .grid>.highlighttable>tbody>tr>.code>.highlight,
+.md-typeset .grid>.highlighttable>tbody>tr>.code>.highlight>pre,
+.md-typeset .grid>.highlighttable>tbody>tr>.code>.highlight>pre>code {
+  height: 100%
+}
+
+.md-typeset .grid>.tabbed-set {
+  margin-bottom: 0;
+  margin-top: 0
+}
+
+/* Right-align elements */
+.right {
+  float: right;
+}
+
+/* Featured content */
+.md-typeset .featured-content ul {
+  width: 100%;
+  margin: 0;
+  padding: 0 0 0 25px;
+}
+
+.md-typeset .featured-content ul li {
+  width: 30%;
+  float: left;
+  list-style-type: disc;
+  list-style-position: outside;
+  white-space: nowrap;
+  margin-right: 20px;
+}
+
+@media only screen and (max-width: 1599px) {
+  .md-typeset .featured-content ul li {
+    margin-right: 10px;
+  }
+
+  @media only screen and (max-width: 966px) {
+    .md-typeset .featured-content ul li {
+      width: 50%;
+      margin: 0;
+    }
+
+    @media only screen and (max-width: 480px) {
+      .md-typeset .featured-content ul li {
+        width: 100%;
+      }
+    }
+  }
+}
+
+/* Adjust permalink icon in headings */
+.md-typeset .headerlink {
+  width: 1em;
+  height: 0.8em;
+  vertical-align: middle;
+  background-color: var(--md-default-fg-color--lighter);
+  background-size: 0.8em;
+  mask-size: 0.8em;
+  -webkit-mask-size: 0.8em;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  visibility: visible;
+  mask-image: var(--md-admonition-icon--link);
+  -webkit-mask-image: var(--md-admonition-icon--link);
+}
+
+.md-typeset .headerlink:hover,
+.md-typeset [id]:target .headerlink {
+  background-color: var(--md-accent-fg-color);
+}
+
+@media screen and (min-width: 76.25em) {
+
+  .md-typeset h1,
+  .md-typeset h2,
+  .md-typeset h3,
+  .md-typeset h4,
+  .md-typeset h5,
+  .md-typeset h6 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .md-typeset .headerlink {
+    order: -1;
+    margin-left: -1em !important;
+  }
+}
+
+/* Move header title closer to logo */
+[dir=ltr] .md-header__title {
+  margin-left: 0.2rem;
+}
+
+[dir=rtl] .md-header__title {
+  margin-right: 0.2rem;
+}
+
+/* Customize colors */
+root, [data-md-color-scheme=default] {
+  --md-code-hl-color: #ccefff;
+}
