@@ -43,3 +43,12 @@ repos:
     hooks:
       - id: yamllint
         args: [-c=.yaml-lint.yml]
+  - repo: local
+    hooks:
+      - id: sort-spelling-wordlist
+        name: sort-spelling-wordlist
+        description: Sort spelling wordlist
+        language: system
+        entry: bash -c 'sort -f docs/spelling_wordlist.txt
+          -o docs/spelling_wordlist.txt'
+        files: ^docs/spelling_wordlist.txt$
