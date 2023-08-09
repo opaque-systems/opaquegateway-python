@@ -83,3 +83,8 @@ extra:
 nav:
   - 'Home':
       - 'index.md'
+  - 'Get Started':
+      - 'getting_started/quickstart.md'
+      - 'getting_started/overview.md'
+  - 'API Reference':
+      - 'api_reference/index.md'
