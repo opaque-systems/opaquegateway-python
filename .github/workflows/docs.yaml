@@ -1,0 +1,35 @@
+---
+name: Spellcheck Documentation
+
+on:
+  push:
+    branches:
+      - dev
+      - master
+    paths:
+      - 'docs/**'
+  pull_request:
+    paths:
+      - 'docs/**'
+
+# Only allow one run of this workflow per PR at a time.
+#
+# This will cancel any still-running workflows triggered by a previous commit to
+# this PR. Note this will not affect workflows triggered by a push (e.g. merging
+# a PR to `dev` or `master`).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      # Spellcheck documentation
+      - name: Spellcheck
+        uses: rojopolis/spellcheck-github-actions@0.28.0
+        with:
+          config_path: .spellcheck.yml

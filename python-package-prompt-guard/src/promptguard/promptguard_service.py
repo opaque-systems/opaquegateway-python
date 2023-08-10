@@ -1,5 +1,5 @@
 """
-This module exposes wrappers around API calls to the Promptguard service.
+This module exposes wrappers around API calls to the PromptGuard service.
 """
 import json
 import os

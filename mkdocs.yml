@@ -1,0 +1,90 @@
+---
+site_name: PromptGuard
+site_url: http://docs.promptguard.opaque.co
+copyright: >
+  Copyright &copy; <a href="https://opaque.co/">Opaque Systems</a> 2023
+theme:
+  name: material
+  custom_dir: docs/overrides
+  palette:
+    primary: light blue
+    accent: light blue
+  features:
+    - toc.follow
+    - navigation.indexes
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - content.code.annotate
+  logo: images/logo.png
+  favicon: images/logo.svg
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      link: octicons/link-16
+plugins:
+  - search
+  - swagger-ui-tag
+  - mkdocstrings:
+      handlers:
+        python:
+          import:
+            - https://docs.python.org/3/objects.inv
+            - https://mkdocstrings.github.io/objects.inv
+            - https://mkdocstrings.github.io/griffe/objects.inv
+          options:
+            docstring_style: numpy
+            docstring_options:
+              ignore_init_summary: true
+            merge_init_into_class: true
+            separate_signature: true
+            show_source: false
+            show_root_full_path: false
+  - markdownextradata: {}
+  - glightbox:
+      zoomable: true
+  - exclude:
+      glob:
+        - api_reference/* # customer-facing docs
+extra_css:
+  - css/extra.css
+extra_javascript:
+  - js/searchhack.js
+  # Read the Docs requires JQuery for its JavaScript code to inject the flyout
+  # menu. Material for MkDocs does not come with JQuery.
+  - 'https://code.jquery.com/jquery-3.6.1.min.js'
+
+markdown_extensions:
+  - toc:
+      permalink: ""
+      title: On this page
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - attr_list
+  - mkdocs-click
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.tabbed:
+      alternate_style: true
+  - md_in_html
+extra:
+  analytics:
+    provider: custom
+  platform: Opaque
+  url: opaque-systems/promptguard-python
+  repo: promptguard-python
+  version: 0.1.0 # Adjust for each new release.
+
+nav:
+  - 'Home':
+      - 'index.md'
+  - 'Get Started':
+      - 'getting_started/quickstart.md'
+      - 'getting_started/overview.md'
+  - 'API Reference':
+      - 'reference/library_api.md'
