@@ -23,7 +23,7 @@ hide:
 
     ---
 
-    Understanding the inner-workings of PromptGuard by reading our technical overview.
+    Gain a better understanding of the inner-workings of PromptGuard by reading our technical overview.
 
     [Learn more :octicons-arrow-right-24:](getting_started/overview.md){: .right}
 
