@@ -3,11 +3,14 @@ hide:
   - navigation
   - toc
 ---
-# 
+<!-- <p align="center"> -->
+<!--   <img src="images/logo_color.png" /> -->
+<!-- </p> -->
 
-<p align="center">
-  <img src="images/logo_color.png" />
-</p>
+# Introduction
+PromptGuard is a service that enables applications to leverage the power of language models without compromising user privacy. Designed for composability and ease of integration into existing applications and services, PromptGuard is consummable via a simple Python library as well as a [LangChain](https://python.langchain.com/docs/get_started/introduction.html) integration. Perhaps more importantly, PromptGuard leverages the power of [confidential computing](https://en.wikipedia.org/wiki/Confidential_computing) to ensure that even the PromptGuard service itself cannot access the data it is protecting.
+
+Today's LLM application architectures often yield constructed prompts that may include retrieved context, conversation memory, and/or a user query, all of which may contain sensitive information. PromptGuard enables applications to protect this sensitive information by sanitizing prompts before they're sent to a language model. PromptGuard can then "de-sanitize" the model's response, ensuring that the application receives the same response it would have received had the prompt not been sanitized. In other words, PromptGuard will, as part of de-sanitization, replace the de-identified tokens in the model's response with the original tokens from the prompt.
 
 <div class="grid cards" markdown>
 
@@ -23,7 +26,7 @@ hide:
 
     ---
 
-    Gain a better understanding of the inner-workings of PromptGuard by reading our technical overview.
+    Gain a better understanding of how PromptGuard protects sensitive data without seeing it.
 
     [Learn more :octicons-arrow-right-24:](getting_started/overview.md){: .right}
 
