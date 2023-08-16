@@ -19,6 +19,7 @@ def get_access_token() -> str:
     access_token = os.environ.get(ACCESS_TOKEN_ENV_VAR)
     if not access_token:
         raise Exception(
-            f"Unable to get access token, ensure the {ACCESS_TOKEN_ENV_VAR} environment variable is set."
+            f"Unable to get access token, \
+            ensure the {ACCESS_TOKEN_ENV_VAR} environment variable is set."
         )
     return access_token
