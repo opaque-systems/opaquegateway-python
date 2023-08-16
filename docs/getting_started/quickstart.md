@@ -13,7 +13,7 @@ Accessing the PromptGuard API requires an API key, which you can get by creating
 Once you have your key, set it as an environment variable:
 
 ```bash
-export PROMPTGUARD_ACCESS_TOKEN="..."
+export PROMPTGUARD_API_KEY="..."
 ```
 
 ## Using PromptGuard standalone
