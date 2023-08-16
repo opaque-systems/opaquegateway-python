@@ -107,7 +107,8 @@ def _send_request_to_ppp_service(
     access_token = os.environ.get(SERVICE_DOMAIN_NAME_ENV_VAR)
     if not access_token:
         raise Exception(
-            f"Unable to get PromptGuard service domain name, ensure the {SERVICE_DOMAIN_NAME_ENV_VAR} environment variable is set."
+            f"Unable to get PromptGuard service domain name, ensure \
+            the {SERVICE_DOMAIN_NAME_ENV_VAR} environment variable is set."
         )
     endpoint_url = f"http://{SERVICE_DOMAIN_NAME_ENV_VAR}/{endpoint}"
     access_token = get_access_token()
