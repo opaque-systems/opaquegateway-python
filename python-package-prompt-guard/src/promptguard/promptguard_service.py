@@ -13,9 +13,7 @@ from promptguard.authentication import get_access_token
 # TODO: Once we have deployed the Promptguard Service this should be hardcoded
 # to use that domain, as end users shouldn't need to configure the
 # domain name manually.
-PROMPTGUARD_SERVICE_DOMAIN_NAME = os.environ.get(
-    "PROMPTGUARD_SERVICE_DOMAIN_NAME"
-)
+SERVICE_DOMAIN_NAME_ENV_VAR = "PROMPTGUARD_SERVICE_DOMAIN_NAME"
 
 
 @dataclass
@@ -106,7 +104,12 @@ def _send_request_to_ppp_service(
         The response object returned by the request, only returned
         if the request was successful
     """
-    endpoint_url = f"http://{PROMPTGUARD_SERVICE_DOMAIN_NAME}/{endpoint}"
+    access_token = os.environ.get(SERVICE_DOMAIN_NAME_ENV_VAR)
+    if not access_token:
+        raise Exception(
+            f"Unable to get PromptGuard service domain name, ensure the {SERVICE_DOMAIN_NAME_ENV_VAR} environment variable is set."
+        )
+    endpoint_url = f"http://{SERVICE_DOMAIN_NAME_ENV_VAR}/{endpoint}"
     access_token = get_access_token()
     response = requests.request(
         "POST",
