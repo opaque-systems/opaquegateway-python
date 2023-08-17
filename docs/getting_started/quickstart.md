@@ -26,4 +26,7 @@ PromptGuard offers two main functions: `sanitize()` and `desanitize()`. `sanitiz
 ```
 
 ## Using PromptGuard with LangChain
+
+TODO: add link to LangChain docs
+
 PromptGuard offers a [LangChain](https://python.langchain.com/docs/get_started/introduction.html) integration that enables you to easily build privacy-preserving LLM applications.
