@@ -8,7 +8,7 @@ pip install promptguard
 ```
 
 ## Environment Setup
-Accessing the PromptGuard API requires an API key, which you can get by creating an account [here](https://promptguard.opaque.co). Once you have an account, you can find your API key on the [API Keys page](https://promptguard.opaque.co/api-keys).
+Accessing the PromptGuard API requires an API key, which you can get by creating an account [on the PromptGuard website](https://promptguard.opaque.co). Once you have an account, you can find your API key on the [API Keys page](https://promptguard.opaque.co/api-keys).
 
 Once you have your key, set it as an environment variable:
 
@@ -29,4 +29,4 @@ PromptGuard offers two main functions: `sanitize()` and `desanitize()`. `sanitiz
 
 TODO: add link to LangChain docs
 
-PromptGuard offers a [LangChain](https://python.langchain.com/docs/get_started/introduction.html) integration that enables you to easily build privacy-preserving LLM applications.
+PromptGuard offers a [LangChain](https://python.langchain.com/docs/get_started/introduction.html) integration, enabling you to easily build privacy-preserving LLM applications.
