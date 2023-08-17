@@ -3,23 +3,23 @@ This module handles authentication logic for the promptguard package.
 """
 import os
 
-ACCESS_TOKEN_ENV_VAR = "PROMPTGUARD_ACCESS_TOKEN"
+API_KEY_ENV_VAR = "PROMPTGUARD_API_KEY"
 
 
-def get_access_token() -> str:
+def get_api_key() -> str:
     """
-    Attempts to extract the users access token from the environment.
+    Attempts to extract the user's API key from the environment.
     Raises an error if the token is missing or empty
 
     Returns
     -------
     str
-        The users access token
+        The user's API key.
     """
-    access_token = os.environ.get(ACCESS_TOKEN_ENV_VAR)
-    if not access_token:
+    api_key = os.environ.get(API_KEY_ENV_VAR)
+    if not api_key:
         raise Exception(
-            f"Unable to get access token, \
-            ensure the {ACCESS_TOKEN_ENV_VAR} environment variable is set."
+            f"Unable to get API key, \
+            ensure the {API_KEY_ENV_VAR} environment variable is set."
         )
-    return access_token
+    return api_key
