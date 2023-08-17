@@ -2,18 +2,15 @@
 This module exposes wrappers around API calls to the PromptGuard service.
 """
 import json
-import os
 from dataclasses import dataclass
 from http import HTTPStatus
-from typing import Dict, Union
+from http.client import HTTPException
+from typing import Dict, List, Union
 
-import requests
 from promptguard.authentication import get_api_key
-
-# TODO: Once we have deployed the Promptguard Service this should be hardcoded
-# to use that domain, as end users shouldn't need to configure the
-# domain name manually.
-SERVICE_DOMAIN_NAME_ENV_VAR = "PROMPTGUARD_SERVICE_DOMAIN_NAME"
+from promptguard.configuration import get_server_config
+from pyatls import AttestedHTTPSConnection, AttestedTLSContext
+from pyatls.validators import AZ_AAS_GLOBAL_JKUS, AzAasAciValidator, Validator
 
 
 @dataclass
@@ -38,10 +35,10 @@ def sanitize(text: str) -> SanitizeResponse:
         The anonymzied version of text without PII and
         a secret entropy value.
     """
-    response = _send_request_to_ppp_service(
-        endpoint="sanitize", payload={"text": text}
+    response = _send_request_to_promptguard_service(
+        endpoint="/sanitize", payload={"text": text}
     )
-    return SanitizeResponse(**json.loads(response.text))
+    return SanitizeResponse(**json.loads(response))
 
 
 @dataclass
@@ -69,22 +66,22 @@ def desanitize(
     DesanitizeResponse
         The deanonymzied version of `sanitized_text` with PII added back in.
     """
-    response = _send_request_to_ppp_service(
-        endpoint="desanitize",
+    response = _send_request_to_promptguard_service(
+        endpoint="/desanitize",
         payload={
             "sanitized_text": sanitized_text,
             "secure_context": secure_context,
         },
     )
-    return DesanitizeResponse(**json.loads(response.text))
+    return DesanitizeResponse(**json.loads(response))
 
 
 ########## Helper Functions ##########
 
 
-def _send_request_to_ppp_service(
+def _send_request_to_promptguard_service(
     endpoint: str, payload: Dict[str, Union[str, bytes]]
-) -> requests.Response:
+) -> str:
     """
     Helper method which takes in the name of the endpoint, and a
     payload dictionary, and converts it into the form needed to send
@@ -100,27 +97,54 @@ def _send_request_to_ppp_service(
 
     Returns
     -------
-    requests.Response
-        The response object returned by the request, only returned
+    str
+        The response body returned by the request, only returned
         if the request was successful
     """
-    service_domain_name = os.environ.get(SERVICE_DOMAIN_NAME_ENV_VAR)
-    if not service_domain_name:
-        raise Exception(
-            f"Unable to get PromptGuard service domain name, ensure \
-            the {SERVICE_DOMAIN_NAME_ENV_VAR} environment variable is set."
-        )
-    endpoint_url = f"http://{service_domain_name}/{endpoint}"
+
     api_key = get_api_key()
-    response = requests.request(
-        "POST",
-        endpoint_url,
-        headers={"Authorization": f"Bearer {api_key}"},
-        data=json.dumps(payload),
-    )
-    if response.status_code != HTTPStatus.OK:
-        raise Exception(
-            f"Error response from {endpoint_url}: "
-            f"[HTTP {response.status_code}] {response.text}"
+    hostname, port = get_server_config()
+
+    ctx = AttestedTLSContext(_get_default_validators())
+    conn = AttestedHTTPSConnection(hostname, ctx, port)
+
+    headers = {"Authorization": f"Bearer {api_key}"}
+
+    try:
+        conn.request(
+            "POST",
+            endpoint,
+            json.dumps(payload),
+            headers,
         )
-    return response
+
+        response = conn.getresponse()
+
+        response_code = response.getcode()
+        response_body = response.read()
+        response_text = response_body.decode()
+
+        if response_code != HTTPStatus.OK:
+            raise HTTPException(
+                f"Error response from the PromptGuard server: "
+                f"[HTTP {response_code}] {response_text}"
+            )
+
+        return response_text
+    finally:
+        conn.close()
+
+
+def _get_default_validators() -> List[Validator]:
+    """
+    Retrieve a list of default aTLS validators to use when connecting to the
+    PromptGuard server with sane default configurations.
+
+    Returns
+    -------
+    list of Validator
+        One or more aTLS validators
+    """
+    az_aas_aci_validator = AzAasAciValidator(jkus=AZ_AAS_GLOBAL_JKUS)
+
+    return [az_aas_aci_validator]
