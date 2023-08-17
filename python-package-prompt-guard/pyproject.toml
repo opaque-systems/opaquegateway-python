@@ -1,7 +1,7 @@
 [project]
 name = "promptguard"
 version = "0.1.0"
-description = "A python package which enables sanitizing prompts and desanitizing responses via an attested enclave."
+description = "The client-side SDK for PromptGuard, a privacy layer that enables applications to wrap external provider calls with a sanitization mechanism to hide sensitive inputs via an attested trusted execution environment."
 readme = "README.md"
 authors= [{ name = "Opaque Systems", email = "pypi@opaque.co" }]
 license = { file = "LICENSE" }
@@ -10,9 +10,8 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
-    "Development Status :: 3 - Alpha",
 ]
-keywords = ["confidential", "llm"]
+keywords = ["confidential", "llm", "ai", "generative", "security", "privacy"]
 dependencies = [
     "pyatls",
     "requests >= 2.0",
