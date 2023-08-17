@@ -1,0 +1,30 @@
+---
+changelog:
+  exclude:
+    labels: []
+    authors: []
+  categories:
+    - title: User-facing features
+      labels:
+        - feat
+    - title: Bug fixes
+      labels:
+        - fix
+    - title: Performance improvements
+      labels:
+        - perf
+    - title: Documentation updates
+      labels:
+        - docs
+    - title: Formatting changes
+      labels:
+        - style
+    - title: Refactoring
+      labels:
+        - refactor
+    - title: Test updates
+      labels:
+        - test
+    - title: Build system updates
+      labels:
+        - build
