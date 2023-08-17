@@ -8,7 +8,7 @@ from http import HTTPStatus
 from typing import Dict, Union
 
 import requests
-from promptguard.authentication import get_access_token
+from promptguard.authentication import get_api_key
 
 # TODO: Once we have deployed the Promptguard Service this should be hardcoded
 # to use that domain, as end users shouldn't need to configure the
@@ -111,11 +111,11 @@ def _send_request_to_ppp_service(
             the {SERVICE_DOMAIN_NAME_ENV_VAR} environment variable is set."
         )
     endpoint_url = f"http://{service_domain_name}/{endpoint}"
-    access_token = get_access_token()
+    api_key = get_api_key()
     response = requests.request(
         "POST",
         endpoint_url,
-        headers={"Authorization": f"Bearer {access_token}"},
+        headers={"Authorization": f"Bearer {api_key}"},
         data=json.dumps(payload),
     )
     if response.status_code != HTTPStatus.OK:
