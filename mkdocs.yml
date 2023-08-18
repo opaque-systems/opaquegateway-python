@@ -1,6 +1,8 @@
 ---
 site_name: PromptGuard
-site_url: http://docs.promptguard.opaque.co
+site_url: https://promptguard.readthedocs.io/
+repo_url: https://github.com/opaque-systems/promptguard-python/
+repo_name: opaque-systems/promptguard-python
 copyright: >
   Copyright &copy; <a href="https://opaque.co/">Opaque Systems</a> 2023
 theme:
