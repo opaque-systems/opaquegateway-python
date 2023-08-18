@@ -7,10 +7,10 @@ from http import HTTPStatus
 from http.client import HTTPException
 from typing import Dict, List, Union
 
+from atls import AttestedHTTPSConnection, AttestedTLSContext
+from atls.validators import AZ_AAS_GLOBAL_JKUS, AzAasAciValidator, Validator
 from promptguard.authentication import get_api_key
 from promptguard.configuration import get_server_config
-from pyatls import AttestedHTTPSConnection, AttestedTLSContext
-from pyatls.validators import AZ_AAS_GLOBAL_JKUS, AzAasAciValidator, Validator
 
 
 @dataclass
