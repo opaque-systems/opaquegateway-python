@@ -16,6 +16,9 @@ from promptguard.configuration import get_server_config
 @dataclass
 class SanitizeResponse:
     sanitized_text: str
+    # In the PromptGuard Service this is represented as bytes
+    # but within the python code those bytes are converted to
+    # a string
     secure_context: str
 
 
