@@ -1,8 +1,10 @@
 composability
+desanitize
 docstring
 LangChain
 LLM
 octicons
+PII
 PromptGuard
 promptguard
 quickstart
