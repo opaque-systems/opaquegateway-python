@@ -1,5 +1,8 @@
 # PromptGuard
-PromptGuard enables applications to leverage the power of language models without compromising user privacy. This repo contains the PromptGuard Python library, which provides a simple interface for interacting with the PromptGuard API. More information about PromptGuard can be found in the [documentation]().
+PromptGuard enables applications to leverage the power of language models while preserving user privacy. This repo contains the PromptGuard Python library, which provides a simple interface for interacting with the PromptGuard Service. More information about PromptGuard can be found in the [documentation](https://promptguard.readthedocs.io/).
+
+**API Stability:** This package is still in development. As such, its API may
+change until it is sufficiently mature.
 
 ## Installation
 
@@ -10,4 +13,4 @@ pip install promptguard
 ```
 
 ## Documentation
-For a quickstart, technical overview, and API reference, see the [PromptGuard documentation]().
+For a quickstart, technical overview, and API reference, see the [PromptGuard documentation](https://promptguard.readthedocs.io/).

@@ -12,4 +12,5 @@ setup(
     packages=["promptguard"],
     package_dir={"": "src"},
     long_description=README_FILE_PATH.read_text(),
+    long_description_content_type="text/markdown",
 )
