@@ -5,7 +5,7 @@ import json
 from dataclasses import dataclass
 from http import HTTPStatus
 from http.client import HTTPException
-from typing import Dict, List, Union
+from typing import Dict, List
 
 from atls import AttestedHTTPSConnection, AttestedTLSContext
 from atls.validators import AZ_AAS_GLOBAL_JKUS, AzAasAciValidator, Validator
@@ -16,7 +16,7 @@ from promptguard.configuration import get_server_config
 @dataclass
 class SanitizeResponse:
     sanitized_text: str
-    secure_context: bytes
+    secure_context: str
 
 
 def sanitize(text: str) -> SanitizeResponse:
@@ -46,9 +46,7 @@ class DesanitizeResponse:
     desanitized_text: str
 
 
-def desanitize(
-    sanitized_text: str, secure_context: bytes
-) -> DesanitizeResponse:
+def desanitize(sanitized_text: str, secure_context: str) -> DesanitizeResponse:
     """
     Takes in a sanitized response and returns the desanitized
     text with PII added back to it.
@@ -57,7 +55,7 @@ def desanitize(
     ----------
     sanitized_text : str
         Sanitized response that you want to be desanitized.
-    secure_context : bytes
+    secure_context : str
         Secret entropy value that should have been returned by
         the call to `sanitize`.
 
@@ -80,7 +78,7 @@ def desanitize(
 
 
 def _send_request_to_promptguard_service(
-    endpoint: str, payload: Dict[str, Union[str, bytes]]
+    endpoint: str, payload: Dict[str, str]
 ) -> str:
     """
     Helper method which takes in the name of the endpoint, and a
