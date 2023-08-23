@@ -15,10 +15,26 @@ from promptguard.configuration import get_server_config
 
 @dataclass
 class SanitizeResponse:
+    """
+    Class representing the return value of the sanitize method
+
+    Parameters
+    ----------
+    sanitized_texts : list of str
+        The sanitized form of the input texts without PII. List has the same
+        dimensions as the input_texts list.
+    secret_entropy : str
+        A set of bytes encoded as a string which contains context
+        needed to desanitize the entities in sanitized_text. Should
+        be passed along to the desanitize endpoint.
+
+    Attributes
+    ----------
+    sanitized_texts
+    secret_entropy
+    """
+
     sanitized_texts: List[str]
-    # In the PromptGuard Service this is represented as bytes
-    # but within the python code those bytes are converted to
-    # a string
     secure_context: str
 
 
@@ -46,6 +62,19 @@ def sanitize(input_texts: List[str]) -> SanitizeResponse:
 
 @dataclass
 class DesanitizeResponse:
+    """
+    Class representing the return value of the desanitize method
+
+    Parameters
+    ----------
+    desanitized_text : str
+        The desanitized form of the input text with PII added back in
+
+    Attributes
+    ----------
+    desanitized_text
+    """
+
     desanitized_text: str
 
 
