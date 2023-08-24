@@ -5,7 +5,7 @@ import json
 from dataclasses import dataclass
 from http import HTTPStatus
 from http.client import HTTPException
-from typing import Dict, List
+from typing import Dict, List, Union
 
 from atls import AttestedHTTPSConnection, AttestedTLSContext
 from atls.validators import AZ_AAS_GLOBAL_JKUS, AzAasAciValidator, Validator
@@ -15,31 +15,31 @@ from promptguard.configuration import get_server_config
 
 @dataclass
 class SanitizeResponse:
-    sanitized_text: str
+    sanitized_texts: List[str]
     # In the PromptGuard Service this is represented as bytes
     # but within the python code those bytes are converted to
     # a string
     secure_context: str
 
 
-def sanitize(text: str) -> SanitizeResponse:
+def sanitize(input_texts: List[str]) -> SanitizeResponse:
     """
-    Takes in a text prompt and returns the sanitized
-    text with PII redacted from it.
+    Takes in a list of text prompts and returns a list of
+    sanitized texts with PII redacted from it.
 
     Parameters
     ----------
-    text : str
-        Prompt that you want to be sanitized.
+    input_text : list of str
+        List of prompt that you want to be sanitized together.
 
     Returns
     -------
     SanitizeResponse
-        The anonymzied version of text without PII and
+        The anonymzied version of input_texts without PII and
         a secret entropy value.
     """
     response = _send_request_to_promptguard_service(
-        endpoint="/sanitize", payload={"text": text}
+        endpoint="/sanitize", payload={"input_texts": input_texts}
     )
     return SanitizeResponse(**json.loads(response))
 
@@ -81,7 +81,7 @@ def desanitize(sanitized_text: str, secure_context: str) -> DesanitizeResponse:
 
 
 def _send_request_to_promptguard_service(
-    endpoint: str, payload: Dict[str, str]
+    endpoint: str, payload: Dict[str, Union[str, List[str]]]
 ) -> str:
     """
     Helper method which takes in the name of the endpoint, and a
