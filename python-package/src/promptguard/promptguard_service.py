@@ -2,15 +2,21 @@
 This module exposes wrappers around API calls to the PromptGuard service.
 """
 import json
+import threading
 from dataclasses import dataclass
 from http import HTTPStatus
 from http.client import HTTPException
-from typing import Dict, List, Union
+from typing import Dict, List, Optional, Union
 
-from atls import AttestedHTTPSConnection, AttestedTLSContext
-from atls.validators import AZ_AAS_GLOBAL_JKUS, AzAasAciValidator, Validator
+import requests
+from atls.utils.requests import HTTPAAdapter
+from atls.validators import Validator
+from atls.validators.azure.aas import PUBLIC_JKUS, AciValidator
 from promptguard.authentication import get_api_key
 from promptguard.configuration import get_server_config
+
+_session: Optional[requests.Session] = None
+_sessionLock: threading.Lock = threading.Lock()
 
 
 @dataclass
@@ -50,7 +56,7 @@ def sanitize(input_texts: List[str]) -> SanitizeResponse:
         a secret entropy value.
     """
     response = _send_request_to_promptguard_service(
-        endpoint="/sanitize", payload={"input_texts": input_texts}
+        endpoint="sanitize", payload={"input_texts": input_texts}
     )
     return SanitizeResponse(**json.loads(response))
 
@@ -88,7 +94,7 @@ def desanitize(sanitized_text: str, secure_context: str) -> DesanitizeResponse:
         The deanonymzied version of `sanitized_text` with PII added back in.
     """
     response = _send_request_to_promptguard_service(
-        endpoint="/desanitize",
+        endpoint="desanitize",
         payload={
             "sanitized_text": sanitized_text,
             "secure_context": secure_context,
@@ -123,37 +129,34 @@ def _send_request_to_promptguard_service(
         if the request was successful
     """
 
+    global _session
+    global _sessionLock
+
+    with _sessionLock:
+        if _session is None:
+            _session = requests.Session()
+            _session.mount("httpa://", HTTPAAdapter(_get_default_validators()))
+
     api_key = get_api_key()
     hostname, port = get_server_config()
 
-    ctx = AttestedTLSContext(_get_default_validators())
-    conn = AttestedHTTPSConnection(hostname, ctx, port)
+    response = _session.request(
+        "POST",
+        f"httpa://{hostname}:{port}/{endpoint}",
+        headers={"Authorization": f"Bearer {api_key}"},
+        data=json.dumps(payload),
+    )
 
-    headers = {"Authorization": f"Bearer {api_key}"}
+    response_code = response.status_code
+    response_text = response.text
 
-    try:
-        conn.request(
-            "POST",
-            endpoint,
-            json.dumps(payload),
-            headers,
+    if response_code != HTTPStatus.OK:
+        raise HTTPException(
+            f"Error response from the PromptGuard server: "
+            f"[HTTP {response_code}] {response_text}"
         )
 
-        response = conn.getresponse()
-
-        response_code = response.getcode()
-        response_body = response.read()
-        response_text = response_body.decode()
-
-        if response_code != HTTPStatus.OK:
-            raise HTTPException(
-                f"Error response from the PromptGuard server: "
-                f"[HTTP {response_code}] {response_text}"
-            )
-
-        return response_text
-    finally:
-        conn.close()
+    return response_text
 
 
 def _get_default_validators() -> List[Validator]:
@@ -166,6 +169,6 @@ def _get_default_validators() -> List[Validator]:
     list of Validator
         One or more aTLS validators
     """
-    az_aas_aci_validator = AzAasAciValidator(jkus=AZ_AAS_GLOBAL_JKUS)
+    aci_validator = AciValidator(jkus=PUBLIC_JKUS)
 
-    return [az_aas_aci_validator]
+    return [aci_validator]
