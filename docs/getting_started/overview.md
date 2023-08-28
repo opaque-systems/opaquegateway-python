@@ -1,4 +1,4 @@
-# Technical overview
+# Overview
 
 ## Supported Entities
 
