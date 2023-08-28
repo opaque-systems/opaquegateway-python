@@ -18,7 +18,7 @@ class SanitizeResponse:
     """
     Class representing the return value of the sanitize method
 
-    Parameters
+    Attributes
     ----------
     sanitized_texts : list of str
         The sanitized form of the input texts without PII. List has the same
@@ -27,11 +27,6 @@ class SanitizeResponse:
         A set of bytes encoded as a string which contains context
         needed to desanitize the entities in sanitized_text. Should
         be passed along to the desanitize endpoint.
-
-    Attributes
-    ----------
-    sanitized_texts
-    secret_entropy
     """
 
     sanitized_texts: List[str]
@@ -65,14 +60,10 @@ class DesanitizeResponse:
     """
     Class representing the return value of the desanitize method
 
-    Parameters
+    Attributes
     ----------
     desanitized_text : str
         The desanitized form of the input text with PII added back in
-
-    Attributes
-    ----------
-    desanitized_text
     """
 
     desanitized_text: str
