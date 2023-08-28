@@ -13,7 +13,7 @@ Currently, the following entity types will be identified and sanitized:
 | Driver's license numbers                                                                                                        | Supports US drivers' licenses       |
 | Email addresses                                                                                                                 |                                     |
 | Geographic locations                                                                                                            |                                     |
-| [International Bank Account Numbers (IBANs)](https://n26.com/en-eu/iban-number) codes                                           |                                     |
+| [International Bank Account Numbers (IBANs)](https://n26.com/en-eu/iban-number)                                            |                                     |
 | [Individual Taxpayer Identification Numbers (ITINs)](https://www.irs.gov/individuals/individual-taxpayer-identification-number) |                                     |
 | IP addresses                                                                                                                    | Supports both IPv4 and IPv6         |
 | Medical license numbers                                                                                                         |                                     |
