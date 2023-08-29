@@ -39,7 +39,11 @@ class SanitizeResponse:
     secure_context: str
 
 
-def sanitize(input_texts: List[str]) -> SanitizeResponse:
+def sanitize(
+    input_texts: List[str],
+    retries: Optional[int] = None,
+    timeout: Optional[int] = None,
+) -> SanitizeResponse:
     """
     Takes in a list of text prompts and returns a list of
     sanitized texts with PII redacted from it.
@@ -56,7 +60,10 @@ def sanitize(input_texts: List[str]) -> SanitizeResponse:
         a secret entropy value.
     """
     response = _send_request_to_promptguard_service(
-        endpoint="sanitize", payload={"input_texts": input_texts}
+        endpoint="sanitize",
+        payload={"input_texts": input_texts},
+        retries=retries,
+        timeout=timeout,
     )
     return SanitizeResponse(**json.loads(response))
 
@@ -75,7 +82,12 @@ class DesanitizeResponse:
     desanitized_text: str
 
 
-def desanitize(sanitized_text: str, secure_context: str) -> DesanitizeResponse:
+def desanitize(
+    sanitized_text: str,
+    secure_context: str,
+    retries: Optional[int] = None,
+    timeout: Optional[int] = None,
+) -> DesanitizeResponse:
     """
     Takes in a sanitized response and returns the desanitized
     text with PII added back to it.
@@ -99,6 +111,8 @@ def desanitize(sanitized_text: str, secure_context: str) -> DesanitizeResponse:
             "sanitized_text": sanitized_text,
             "secure_context": secure_context,
         },
+        retries=retries,
+        timeout=timeout,
     )
     return DesanitizeResponse(**json.loads(response))
 
@@ -107,7 +121,10 @@ def desanitize(sanitized_text: str, secure_context: str) -> DesanitizeResponse:
 
 
 def _send_request_to_promptguard_service(
-    endpoint: str, payload: Dict[str, Union[str, List[str]]]
+    endpoint: str,
+    payload: Dict[str, Union[str, List[str]]],
+    retries: Optional[int] = None,
+    timeout: Optional[int] = None,
 ) -> str:
     """
     Helper method which takes in the name of the endpoint, and a
@@ -140,23 +157,35 @@ def _send_request_to_promptguard_service(
     api_key = get_api_key()
     hostname, port = get_server_config()
 
-    response = _session.request(
-        "POST",
-        f"httpa://{hostname}:{port}/{endpoint}",
-        headers={"Authorization": f"Bearer {api_key}"},
-        data=json.dumps(payload),
-    )
+    if retries is None:
+        retries = 3
 
-    response_code = response.status_code
-    response_text = response.text
+    conn_except: ConnectionError
+    while retries > 0:
+        try:
+            response = _session.request(
+                "POST",
+                f"httpa://{hostname}:{port}/{endpoint}",
+                headers={"Authorization": f"Bearer {api_key}"},
+                data=json.dumps(payload),
+                timeout=timeout,
+            )
 
-    if response_code != HTTPStatus.OK:
-        raise HTTPException(
-            f"Error response from the PromptGuard server: "
-            f"[HTTP {response_code}] {response_text}"
-        )
+            response_code = response.status_code
+            response_text = response.text
 
-    return response_text
+            if response_code != HTTPStatus.OK:
+                raise HTTPException(
+                    f"Error response from the PromptGuard server: "
+                    f"[HTTP {response_code}] {response_text}"
+                )
+
+            return response_text
+        except ConnectionError as e:
+            conn_except = e
+            retries -= 1
+
+    raise conn_except
 
 
 def _get_default_validators() -> List[Validator]:
