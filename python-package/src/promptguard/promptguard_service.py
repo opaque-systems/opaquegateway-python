@@ -15,8 +15,12 @@ from atls.validators.azure.aas import PUBLIC_JKUS, AciValidator
 from promptguard.authentication import get_api_key
 from promptguard.configuration import get_server_config
 
+# Global requests session to leverage connection pooling to in turn avoid
+# establishing a new connection for each request to the service.
 _session: Optional[requests.Session] = None
-_sessionLock: threading.Lock = threading.Lock()
+
+# Protects the global requests session when creating it for the first time.
+_session_lock: threading.Lock = threading.Lock()
 
 
 @dataclass
@@ -30,9 +34,9 @@ class SanitizeResponse:
         The sanitized form of the input texts without PII. List has the same
         dimensions as the input_texts list.
     secret_entropy : str
-        A set of bytes encoded as a string which contains context
-        needed to desanitize the entities in sanitized_text. Should
-        be passed along to the desanitize endpoint.
+        A set of bytes encoded as a string that contains the context needed to
+        desanitize the entities in sanitized_text; it must be passed along to
+        the desanitize endpoint.
     """
 
     sanitized_texts: List[str]
@@ -45,19 +49,19 @@ def sanitize(
     timeout: Optional[int] = None,
 ) -> SanitizeResponse:
     """
-    Takes in a list of text prompts and returns a list of
-    sanitized texts with PII redacted from it.
+    Takes in a list of prompts and returns a list of sanitized prompts with PII
+    redacted from it.
 
     Parameters
     ----------
     input_text : list of str
-        List of prompt that you want to be sanitized together.
+        List of prompts to sanitize together.
 
     Returns
     -------
     SanitizeResponse
-        The anonymzied version of input_texts without PII and
-        a secret entropy value.
+        The anonymized version of input_texts without PII and a secret entropy
+        value.
     """
     response = _send_request_to_promptguard_service(
         endpoint="sanitize",
@@ -71,12 +75,12 @@ def sanitize(
 @dataclass
 class DesanitizeResponse:
     """
-    Class representing the return value of the desanitize method
+    Class representing the return value of the desanitize method.
 
     Attributes
     ----------
     desanitized_text : str
-        The desanitized form of the input text with PII added back in
+        The desanitized form of the input text with PII added back in.
     """
 
     desanitized_text: str
@@ -89,21 +93,26 @@ def desanitize(
     timeout: Optional[int] = None,
 ) -> DesanitizeResponse:
     """
-    Takes in a sanitized response and returns the desanitized
-    text with PII added back to it.
+    Takes in a sanitized response and returns the desanitized text with PII
+    added back to it.
 
     Parameters
     ----------
     sanitized_text : str
         Sanitized response that you want to be desanitized.
     secure_context : str
-        Secret entropy value that should have been returned by
-        the call to `sanitize`.
+        Secret entropy value that should have been returned by the call to
+        sanitize.
+    retries : int, optional
+        The number of retries to submit a request to the service before giving
+        up when errors occur.
+    timeout : int, optional
+        The number of seconds to wait until a request to the service times out.
 
     Returns
     -------
     DesanitizeResponse
-        The deanonymzied version of `sanitized_text` with PII added back in.
+        The deanonymzied version of sanitized_text with PII added back in.
     """
     response = _send_request_to_promptguard_service(
         endpoint="desanitize",
@@ -127,29 +136,34 @@ def _send_request_to_promptguard_service(
     timeout: Optional[int] = None,
 ) -> str:
     """
-    Helper method which takes in the name of the endpoint, and a
-    payload dictionary, and converts it into the form needed to send
-    the request to the Promptguard service. Returns the response
-    recieved if its successful, and raises an error otherwise.
+    Helper method which takes in the name of the endpoint and a payload
+    dictionary, and converts it into the form needed to send the request to the
+    PromptGuard service. Returns the response received if it's successful, and
+    raises an error otherwise.
 
     Parameters
     ----------
     endpoint : str
-        The name of the endpoint you are trying to hit
+        The name of the endpoint you are trying to hit.
     payload : dict
-        The payload of the request as a dictionary
+        The payload of the request as a dictionary.
+    retries : int, optional
+        The number of retries to submit a request to the service before giving
+        up when errors occur.
+    timeout : int, optional
+        The number of seconds to wait until a request to the service times out.
 
     Returns
     -------
     str
-        The response body returned by the request, only returned
-        if the request was successful
+        The response body returned by the request, only returned if the request
+        was successful.
     """
 
     global _session
-    global _sessionLock
+    global _session_lock
 
-    with _sessionLock:
+    with _session_lock:
         if _session is None:
             _session = requests.Session()
             _session.mount("httpa://", HTTPAAdapter(_get_default_validators()))
