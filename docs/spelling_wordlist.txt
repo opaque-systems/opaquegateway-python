@@ -1,7 +1,12 @@
+BTC
 composability
+Crypto
 desanitize
 desanitized
 docstring
+IBANs
+IPv
+ITINs
 LangChain
 LLM
 octicons
@@ -10,5 +15,6 @@ PromptGuard
 promptguard
 quickstart
 src
+SSN
 toc
 TODO
