@@ -10,6 +10,8 @@ ITINs
 LangChain
 LLM
 octicons
+OpaquePrompts
+opaqueprompts
 PII
 PromptGuard
 promptguard

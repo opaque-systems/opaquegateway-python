@@ -1,8 +1,8 @@
 ---
-site_name: Opaque PromptGuard
-site_url: https://promptguard.readthedocs.io/
-repo_url: https://github.com/opaque-systems/promptguard-python/
-repo_name: opaque-systems/promptguard-python
+site_name: OpaquePrompts
+site_url: https://opaqueprompts.readthedocs.io/
+repo_url: https://github.com/opaque-systems/opaqueprompts-python/
+repo_name: opaque-systems/opaqueprompts-python
 copyright: >
   Copyright &copy; <a href="https://opaque.co/">Opaque Systems</a> 2023
 theme:
@@ -77,8 +77,8 @@ extra:
   analytics:
     provider: custom
   platform: Opaque
-  url: opaque-systems/promptguard-python
-  repo: promptguard-python
+  url: opaque-systems/opaqueprompts-python
+  repo: opaqueprompts-python
   version: 0.1.0 # Adjust for each new release.
 
 nav:
