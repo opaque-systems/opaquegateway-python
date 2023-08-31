@@ -1,3 +1,3 @@
-# PromptGuard Library API reference
+# OpaquePrompts Library API reference
 
-::: python-package.src.promptguard.promptguard_service
+::: python-package.src.opaqueprompts.opaqueprompts_service

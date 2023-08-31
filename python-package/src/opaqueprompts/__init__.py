@@ -1,4 +1,4 @@
-from promptguard.promptguard_service import (
+from opaqueprompts.opaqueprompts_service import (
     DesanitizeResponse,
     SanitizeResponse,
     desanitize,
