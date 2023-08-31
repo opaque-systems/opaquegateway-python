@@ -24,14 +24,14 @@ def get_server_config() -> Tuple[str, int]:
     (str, int)
         The hostname or IP and the port number to use
     """
-    hostname = os.environ.get(SERVER_HOSTNAME_ENV_VAR)
+    hostname = os.environ.get(SERVER_HOSTNAME_ENV_VAR, "pppdev.opaque.co")
     if not hostname:
         raise Exception(
             f"Unable to read the OpaquePrompts server hostname, \
             ensure the {SERVER_HOSTNAME_ENV_VAR} environment variable is set."
         )
 
-    port_str = os.environ.get(SERVER_PORT_ENV_VAR)
+    port_str = os.environ.get(SERVER_PORT_ENV_VAR, "443")
     if port_str is not None:
         port = int(port_str)
     else:
