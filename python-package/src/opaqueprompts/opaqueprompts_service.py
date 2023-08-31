@@ -56,6 +56,11 @@ def sanitize(
     ----------
     input_texts : list of str
         List of prompts to sanitize together.
+    retries : int, optional
+        The number of retries to submit a request to the service before giving
+        up when errors occur.
+    timeout : int, optional
+        The number of seconds to wait until a request to the service times out.
 
     Returns
     -------
