@@ -1,7 +1,7 @@
 [project]
-name = "promptguard"
+name = "opaqueprompts"
 version = "0.0.3"
-description = "The client-side SDK for PromptGuard, a privacy layer that enables applications to wrap external provider calls with a sanitization mechanism that hides sensitive inputs via an attested trusted execution environment."
+description = "The client-side SDK for OpaquePrompts, a privacy layer that enables applications to wrap external provider calls with a sanitization mechanism that hides sensitive inputs via an attested trusted execution environment."
 readme = "README.md"
 authors= [{ name = "Opaque Systems", email = "pypi@opaque.co" }]
 license = { file = "LICENSE" }
@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/opaque-systems/promptguard-python"
+Homepage = "https://github.com/opaque-systems/opaqueprompts-python"
 
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]

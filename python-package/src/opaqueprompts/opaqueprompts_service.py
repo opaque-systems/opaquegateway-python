@@ -1,5 +1,5 @@
 """
-This module exposes wrappers around API calls to the PromptGuard service.
+This module exposes wrappers around API calls to the OpaquePrompts service.
 """
 import json
 import threading
@@ -12,8 +12,8 @@ import requests
 from atls.utils.requests import HTTPAAdapter
 from atls.validators import Validator
 from atls.validators.azure.aas import PUBLIC_JKUS, AciValidator
-from promptguard.authentication import get_api_key
-from promptguard.configuration import get_server_config
+from opaqueprompts.authentication import get_api_key
+from opaqueprompts.configuration import get_server_config
 
 # Global requests session to leverage connection pooling to in turn avoid
 # establishing a new connection for each request to the service.
@@ -63,7 +63,7 @@ def sanitize(
         The anonymized version of input_texts without PII and a secret entropy
         value.
     """
-    response = _send_request_to_promptguard_service(
+    response = _send_request_to_opaqueprompts_service(
         endpoint="sanitize",
         payload={"input_texts": input_texts},
         retries=retries,
@@ -114,7 +114,7 @@ def desanitize(
     DesanitizeResponse
         The deanonymzied version of sanitized_text with PII added back in.
     """
-    response = _send_request_to_promptguard_service(
+    response = _send_request_to_opaqueprompts_service(
         endpoint="desanitize",
         payload={
             "sanitized_text": sanitized_text,
@@ -129,7 +129,7 @@ def desanitize(
 ########## Helper Functions ##########
 
 
-def _send_request_to_promptguard_service(
+def _send_request_to_opaqueprompts_service(
     endpoint: str,
     payload: Dict[str, Union[str, List[str]]],
     retries: Optional[int] = None,
@@ -138,7 +138,7 @@ def _send_request_to_promptguard_service(
     """
     Helper method which takes in the name of the endpoint and a payload
     dictionary, and converts it into the form needed to send the request to the
-    PromptGuard service. Returns the response received if it's successful, and
+    OpaquePrompts service. Returns the response received if it's successful, and
     raises an error otherwise.
 
     Parameters
@@ -190,7 +190,7 @@ def _send_request_to_promptguard_service(
 
             if response_code != HTTPStatus.OK:
                 raise HTTPException(
-                    f"Error response from the PromptGuard server: "
+                    f"Error response from the OpaquePrompts server: "
                     f"[HTTP {response_code}] {response_text}"
                 )
 
@@ -205,7 +205,7 @@ def _send_request_to_promptguard_service(
 def _get_default_validators() -> List[Validator]:
     """
     Retrieve a list of default aTLS validators to use when connecting to the
-    PromptGuard server with sane default configurations.
+    OpaquePrompts server with sane default configurations.
 
     Returns
     -------

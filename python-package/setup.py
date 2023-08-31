@@ -9,7 +9,7 @@ README_FILE_PATH = Path("README.md")
 # directly calling setup.py. When installed that way, the values of
 # pyproject.toml are passed in here
 setup(
-    packages=["promptguard"],
+    packages=["opaqueprompts"],
     package_dir={"": "src"},
     long_description=README_FILE_PATH.read_text(),
     long_description_content_type="text/markdown",
