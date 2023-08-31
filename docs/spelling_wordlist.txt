@@ -13,8 +13,6 @@ octicons
 OpaquePrompts
 opaqueprompts
 PII
-PromptGuard
-promptguard
 quickstart
 src
 SSN
