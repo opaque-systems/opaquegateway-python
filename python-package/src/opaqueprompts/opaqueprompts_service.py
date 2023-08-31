@@ -138,8 +138,8 @@ def _send_request_to_opaqueprompts_service(
     """
     Helper method which takes in the name of the endpoint and a payload
     dictionary, and converts it into the form needed to send the request to the
-    OpaquePrompts service. Returns the response received if it's successful, and
-    raises an error otherwise.
+    OpaquePrompts service. Returns the response received if it's successful,
+    and raises an error otherwise.
 
     Parameters
     ----------
