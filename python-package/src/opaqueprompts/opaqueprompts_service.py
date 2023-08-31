@@ -109,7 +109,7 @@ def desanitize(
         Secret entropy value that should have been returned by the call to
         sanitize.
     retries : int, optional
-        The number of retries to submit a request to the service before giving
+        The number of times to resubmit a request to the service before giving
         up when errors occur.
     timeout : int, optional
         The number of seconds to wait until a request to the service times out.
@@ -153,7 +153,7 @@ def _send_request_to_opaqueprompts_service(
     payload : dict
         The payload of the request as a dictionary.
     retries : int, optional
-        The number of retries to submit a request to the service before giving
+        The number of times to resubmit a request to the service before giving
         up when errors occur.
     timeout : int, optional
         The number of seconds to wait until a request to the service times out.
