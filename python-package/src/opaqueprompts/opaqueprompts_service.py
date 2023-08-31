@@ -54,7 +54,7 @@ def sanitize(
 
     Parameters
     ----------
-    input_text : list of str
+    input_texts : list of str
         List of prompts to sanitize together.
 
     Returns
