@@ -19,6 +19,8 @@ export OPAQUEPROMPTS_API_KEY="..."
 ## Using OpaquePrompts standalone
 OpaquePrompts offers two main functions: `sanitize()` and `desanitize()`. `sanitize()` takes a string and returns a sanitized (i.e. encrypted and redacted) version of it, while `desanitize()` takes a sanitized string and returns the original string.
 
+### Sanitization
+
 ```python
 import opaqueprompts
 
@@ -33,6 +35,8 @@ SanitizeResponse(sanitized_text='PERSON_2 called PHONE_NUMBER_1 (the phone numbe
 ```
 As you can see, the `sanitized_text` field contains the initial message, but with the PII removed. The `secure_context` is just an opaque set of bytes
 which should get passed to the desanitize call as shown below.
+
+### Desanitization
 
 ```python
 # Assume that sanitized_response.sanitized_text was passed into an LLM of your
