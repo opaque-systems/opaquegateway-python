@@ -8,7 +8,7 @@ pip install opaqueprompts
 ```
 
 ## Environment Setup
-Accessing the OpaquePrompts API requires an API key, which you can get by creating an account [on the OpaquePrompts website](https://opaqueprompts.opaque.co). Once you have an account, you can find your API key on the [API Keys page](https://opaqueprompts.opaque.co/api-keys).
+Accessing the OpaquePrompts API requires an API key, which you can get by creating an account [on the OpaquePrompts website](https://opaqueprompts.opaque.co). Once you have an account, you can find your API key on the [API Keys page](https://opaqueprompts.opaque.co/#/main/api/key).
 
 Once you have your key, set it as an environment variable:
 
