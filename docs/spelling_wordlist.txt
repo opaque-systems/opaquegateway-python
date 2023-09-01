@@ -1,6 +1,7 @@
 BTC
 composability
 Crypto
+Desanitization
 desanitize
 desanitized
 docstring
@@ -14,6 +15,7 @@ OpaquePrompts
 opaqueprompts
 PII
 quickstart
+Sanitization
 src
 SSN
 toc
