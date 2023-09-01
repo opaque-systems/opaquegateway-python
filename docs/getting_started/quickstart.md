@@ -54,4 +54,4 @@ DesanitizeResponse(desanitized_text='Sarah Jane and John Smith will be meeting i
 
 ## Using OpaquePrompts with LangChain
 
-OpaquePrompts offers a [LangChain](https://python.langchain.com/docs/get_started/introduction.html) integration, enabling you to easily build privacy-preserving LLM applications. See the [OpaquePrompts page in the LangChain documentation](https://python.langchain.com/docs/integrations/llms/promptguard) for more.
+OpaquePrompts offers a [LangChain](https://python.langchain.com/docs/get_started/introduction.html) integration, enabling you to easily build privacy-preserving LLM applications. See the [OpaquePrompts page in the LangChain documentation](https://python.langchain.com/docs/integrations/llms/opaqueprompts) for more.
