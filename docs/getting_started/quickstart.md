@@ -8,7 +8,7 @@ pip install opaqueprompts
 ```
 
 ## Environment Setup
-Accessing the OpaquePrompts API requires an API key, which you can get by creating an account [on the OpaquePrompts website](https://opaqueprompts.opaque.co). Once you have an account, you can find your API key on the [API Keys page](https://opaqueprompts.opaque.co/api-keys).
+Accessing the OpaquePrompts API requires an API key, which you can get by creating an account [on the OpaquePrompts website](https://opaqueprompts.opaque.co). Once you have an account, you can find your API key on the [API Keys page](https://opaqueprompts.opaque.co/#/main/api/key).
 
 Once you have your key, set it as an environment variable:
 
@@ -18,6 +18,8 @@ export OPAQUEPROMPTS_API_KEY="..."
 
 ## Using OpaquePrompts standalone
 OpaquePrompts offers two main functions: `sanitize()` and `desanitize()`. `sanitize()` takes a string and returns a sanitized (i.e. encrypted and redacted) version of it, while `desanitize()` takes a sanitized string and returns the original string.
+
+### Sanitization
 
 ```python
 import opaqueprompts
@@ -33,6 +35,8 @@ SanitizeResponse(sanitized_text='PERSON_2 called PHONE_NUMBER_1 (the phone numbe
 ```
 As you can see, the `sanitized_text` field contains the initial message, but with the PII removed. The `secure_context` is just an opaque set of bytes
 which should get passed to the desanitize call as shown below.
+
+### Desanitization
 
 ```python
 # Assume that sanitized_response.sanitized_text was passed into an LLM of your
@@ -50,4 +54,4 @@ DesanitizeResponse(desanitized_text='Sarah Jane and John Smith will be meeting i
 
 ## Using OpaquePrompts with LangChain
 
-OpaquePrompts offers a [LangChain](https://python.langchain.com/docs/get_started/introduction.html) integration, enabling you to easily build privacy-preserving LLM applications. See the [OpaquePrompts page in the LangChain documentation](https://python.langchain.com/docs/integrations/llms/promptguard) for more.
+OpaquePrompts offers a [LangChain](https://python.langchain.com/docs/get_started/introduction.html) integration, enabling you to easily build privacy-preserving LLM applications. See the [OpaquePrompts page in the LangChain documentation](https://python.langchain.com/docs/integrations/llms/opaqueprompts) for more.
