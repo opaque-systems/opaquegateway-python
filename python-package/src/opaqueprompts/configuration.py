@@ -24,7 +24,7 @@ def get_server_config() -> Tuple[str, int]:
     (str, int)
         The hostname or IP and the port number to use
     """
-    hostname = os.environ.get(SERVER_HOSTNAME_ENV_VAR, "pppprod.opaque.co")
+    hostname = os.environ.get(SERVER_HOSTNAME_ENV_VAR, "api.opaqueprompts.opaque.co")
     if not hostname:
         raise Exception(
             f"Unable to read the OpaquePrompts server hostname, \
