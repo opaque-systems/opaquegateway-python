@@ -1,4 +1,10 @@
-# OpaquePrompts
+
+
+<div align="center">
+  <img src="docs/images/opaque_prompts_logo.png" alt="OpaquePrompts logo" width="500">
+</div>
+
+---
 
 [![](https://dcbadge.vercel.app/api/server/XKF79KUN?compact=true&style=flat)](https://discord.gg/XKF79KUN)
 
