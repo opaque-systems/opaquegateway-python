@@ -1,5 +1,9 @@
 # Overview
 
+## Technical Overview
+
+A technical overview on how OpaquePrompts leverages [confidential computing](https://en.wikipedia.org/wiki/Confidential_computing) and [remote attestation](https://www.redhat.com/en/blog/attestation-confidential-computing) is coming soon.
+
 ## Supported Entities
 
 Currently, the following entity types will be identified and sanitized:
