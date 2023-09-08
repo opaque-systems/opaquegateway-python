@@ -25,15 +25,15 @@ OpaquePrompts offers two main functions: `sanitize()` and `desanitize()`. `sanit
 import opaqueprompts
 
 input_text_with_pii = "John Smith called 213-456-7098 (the phone number of his friend Sarah Jane) and asked her to meet him in San Francisco."
-sanitized_response = opaqueprompts.sanitize(text = input_text_with_pii)
+sanitized_response = opaqueprompts.sanitize(input_texts = [input_text_with_pii])
 ```
-The `sanitized_response` contains both the `sanitized_text` as well as `secure_context` which must be passed to the followup call to `desanitize()`. 
+The `sanitized_response` contains both the `sanitized_texts` as well as `secure_context` which must be passed to the followup call to `desanitize()`. 
 
 ```python
 > print(sanitized_response)
-SanitizeResponse(sanitized_text='PERSON_2 called PHONE_NUMBER_1 (the phone number of his friend PERSON_1) and asked her to meet him in LOCATION_1.', secure_context='eyJzZWNyZXRfZW50cm9weSI6IjRocWZxb1VBUmJueWNYeU5JRjROa3VzNjdkSnZtY1ZPVFhYcnlPWDdmNzAxNVR4NVUraTM5c3VGRTJqS3oySjUzMkM4ckF6L0cyME5sWGloZ2hicWhzcFF6N2pVTUZIVVNvMVRGam1UU2tTcG5pR1Bob0s5RUR3N3JQZ2VkMklJNEhRTHh2dVZNUnJlY2h3WVhGbGhZYzhFOEI1VFJkWVl2Sm1QUG5Rbkp3WT0iLCJlbnRpdHlfbWFwIjp7IkxPQ0FUSU9OXzEiOiJibFpDVE1oMTR0OW1FQmZsejk5cWVlWVJSTjdyUzhkUTZRRVZOZHlKNkEwPSIsIlBFUlNPTl8xIjoiZDZiR3VjOEJVNUdPcG56cDJoV1FaUUIyaUtvRzA2U3dCdGlkSXo5WGxaUT0iLCJQRVJTT05fMiI6IkpKSyt6cmhtTENzWGVkTHhoNWxhTWFFSzlUVmw1bU55MkNGR3FZekRmZ3M9IiwiUEhPTkVfTlVNQkVSXzEiOiJhQU9GVmhoT0tqczVzT0Iwczh2dnZwNTBsVk9XcnNyODE3eEVVSnkrTzdRPSJ9fQ==')
+SanitizeResponse(sanitized_texts=['PERSON_2 called PHONE_NUMBER_1 (the phone number of his friend PERSON_1) and asked her to meet him in LOCATION_1.'], secure_context='eyJzZWNyZXRfZW50cm9weSI6IjRocWZxb1VBUmJueWNYeU5JRjROa3VzNjdkSnZtY1ZPVFhYcnlPWDdmNzAxNVR4NVUraTM5c3VGRTJqS3oySjUzMkM4ckF6L0cyME5sWGloZ2hicWhzcFF6N2pVTUZIVVNvMVRGam1UU2tTcG5pR1Bob0s5RUR3N3JQZ2VkMklJNEhRTHh2dVZNUnJlY2h3WVhGbGhZYzhFOEI1VFJkWVl2Sm1QUG5Rbkp3WT0iLCJlbnRpdHlfbWFwIjp7IkxPQ0FUSU9OXzEiOiJibFpDVE1oMTR0OW1FQmZsejk5cWVlWVJSTjdyUzhkUTZRRVZOZHlKNkEwPSIsIlBFUlNPTl8xIjoiZDZiR3VjOEJVNUdPcG56cDJoV1FaUUIyaUtvRzA2U3dCdGlkSXo5WGxaUT0iLCJQRVJTT05fMiI6IkpKSyt6cmhtTENzWGVkTHhoNWxhTWFFSzlUVmw1bU55MkNGR3FZekRmZ3M9IiwiUEhPTkVfTlVNQkVSXzEiOiJhQU9GVmhoT0tqczVzT0Iwczh2dnZwNTBsVk9XcnNyODE3eEVVSnkrTzdRPSJ9fQ==')
 ```
-As you can see, the `sanitized_text` field contains the initial message, but with the PII removed. The `secure_context` is just an opaque set of bytes
+As you can see, the `sanitized_texts` field contains the initial message, but with the PII removed. The `secure_context` is just an opaque set of bytes
 which should get passed to the desanitize call as shown below.
 
 ### Desanitization
