@@ -6,6 +6,7 @@ import threading
 from dataclasses import dataclass
 from http import HTTPStatus
 from http.client import HTTPException
+from importlib import metadata
 from typing import Dict, List, Optional, Union
 
 import requests
@@ -185,7 +186,10 @@ def _send_request_to_opaqueprompts_service(
             response = _session.request(
                 "POST",
                 f"httpa://{hostname}:{port}/{endpoint}",
-                headers={"Authorization": f"Bearer {api_key}"},
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Request-Version": metadata.version("opaqueprompts"),
+                },
                 data=json.dumps(payload),
                 timeout=timeout,
             )
