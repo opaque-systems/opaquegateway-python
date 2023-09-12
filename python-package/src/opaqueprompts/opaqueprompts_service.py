@@ -2,13 +2,13 @@
 This module exposes wrappers around API calls to the OpaquePrompts service.
 """
 import json
+import os
 import threading
 from dataclasses import dataclass
 from http import HTTPStatus
 from http.client import HTTPException
 from typing import Dict, List, Optional, Union
 
-import os
 import requests
 from atls.utils.requests import HTTPAAdapter
 from atls.validators import Validator
@@ -180,7 +180,9 @@ def _send_request_to_opaqueprompts_service(
         if _session is None:
             _session = requests.Session()
             if _client_atls_enabled:
-                _session.mount("httpa://", HTTPAAdapter(_get_default_validators()))
+                _session.mount(
+                    "httpa://", HTTPAAdapter(_get_default_validators())
+                )
 
     api_key = get_api_key()
     hostname, port = get_server_config()
