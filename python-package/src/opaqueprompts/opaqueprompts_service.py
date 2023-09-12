@@ -2,6 +2,7 @@
 This module exposes wrappers around API calls to the OpaquePrompts service.
 """
 import json
+import os
 import threading
 from dataclasses import dataclass
 from http import HTTPStatus
@@ -168,10 +169,21 @@ def _send_request_to_opaqueprompts_service(
     global _session
     global _session_lock
 
+    # This flag is used to disable aTLS for testing purposes.
+    # INTERNAL USE ONLY.
+    # It breaks the communication with the aTLS enabled server.
+    _client_atls_enabled = bool(
+        os.environ.get("OPAQUEPROMPTS_CLIENT_ATLS_ENABLED", True)
+    )
+    http_protocol = "httpa" if _client_atls_enabled else "http"
+
     with _session_lock:
         if _session is None:
             _session = requests.Session()
-            _session.mount("httpa://", HTTPAAdapter(_get_default_validators()))
+            if _client_atls_enabled:
+                _session.mount(
+                    "httpa://", HTTPAAdapter(_get_default_validators())
+                )
 
     api_key = get_api_key()
     hostname, port = get_server_config()
@@ -184,7 +196,7 @@ def _send_request_to_opaqueprompts_service(
         try:
             response = _session.request(
                 "POST",
-                f"httpa://{hostname}:{port}/{endpoint}",
+                f"{http_protocol}://{hostname}:{port}/{endpoint}",
                 headers={"Authorization": f"Bearer {api_key}"},
                 data=json.dumps(payload),
                 timeout=timeout,
