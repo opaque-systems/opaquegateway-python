@@ -171,6 +171,7 @@ def _send_request_to_opaqueprompts_service(
 
     # This flag is used to disable aTLS for testing purposes.
     # INTERNAL USE ONLY.
+    # It breaks the communication with the aTLS enabled server.
     _client_atls_enabled = bool(
         os.environ.get("OPAQUEPROMPTS_CLIENT_ATLS_ENABLED", True)
     )
