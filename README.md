@@ -7,6 +7,7 @@
 ---
 
 [![](https://dcbadge.vercel.app/api/server/mVuCfxudrD?compact=true&style=flat)](https://discord.gg/mVuCfxudrD)
+[![PyPI version](https://badge.fury.io/py/opaqueprompts.svg)](https://badge.fury.io/py/opaqueprompts)
 
 OpaquePrompts enables applications to leverage the power of language models while preserving user privacy. This repo contains the OpaquePrompts Python library, which provides a simple interface for interacting with the OpaquePrompts Service. More information about OpaquePrompts can be found in the [documentation](https://opaqueprompts.readthedocs.io/).
 
