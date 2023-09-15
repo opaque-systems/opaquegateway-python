@@ -6,7 +6,7 @@
 
 ---
 
-[![](https://dcbadge.vercel.app/api/server/XKF79KUN?compact=true&style=flat)](https://discord.gg/XKF79KUN)
+[![](https://dcbadge.vercel.app/api/server/XKF79KUN?compact=true&style=flat)](https://discord.gg/mVuCfxudrD)
 
 OpaquePrompts enables applications to leverage the power of language models while preserving user privacy. This repo contains the OpaquePrompts Python library, which provides a simple interface for interacting with the OpaquePrompts Service. More information about OpaquePrompts can be found in the [documentation](https://opaqueprompts.readthedocs.io/).
 
@@ -25,4 +25,4 @@ pip install opaqueprompts
 For a quickstart, technical overview, and API reference, see the [OpaquePrompts documentation](https://opaqueprompts.readthedocs.io/).
 
 ## Contact
-To contact us, join our [Discord server](https://discord.gg/XKF79KUN) or email us at [opaqueprompts@opaque.co](mailto:opaqueprompts@opaque.co).
+To contact us, join our [Discord server](https://discord.gg/mVuCfxudrD) or email us at [opaqueprompts@opaque.co](mailto:opaqueprompts@opaque.co).
