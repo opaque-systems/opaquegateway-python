@@ -200,7 +200,7 @@ def _send_request_to_opaqueprompts_service(
                 f"{http_protocol}://{hostname}:{port}/{endpoint}",
                 headers={
                     "Authorization": f"Bearer {api_key}",
-                    "Request-Version": metadata.version("opaqueprompts"),
+                    "Python-Client-Version": metadata.version("opaqueprompts"),
                 },
                 data=json.dumps(payload),
                 timeout=timeout,
