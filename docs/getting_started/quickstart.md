@@ -55,3 +55,25 @@ DesanitizeResponse(desanitized_text='Sarah Jane and John Smith will be meeting i
 ## Using OpaquePrompts with LangChain
 
 OpaquePrompts offers a [LangChain](https://python.langchain.com/docs/get_started/introduction.html) integration, enabling you to easily build privacy-preserving LLM applications. See the [OpaquePrompts page in the LangChain documentation](https://python.langchain.com/docs/integrations/llms/opaqueprompts) for more.
+
+## Troubleshooting
+
+### Version Missmatch
+
+OpaquePrompts is currently in a Beta stage and is constantly being improved. As such we sometimes must make breaking changes and drop support for the old versions of the python package. If this happens then you should see an error message like this when making a sanitize or desanitize call:
+
+```
+Request sent using package version 0.1.0, but minimum supported version is 0.2.0. Please update the opaqueprompts package to a supported version.
+```
+
+If this happens, then simply reinstall opaqueprompts with `pip install -U opaqueprompts` and then you should be able to continue using the package without issue.
+
+### Missing Version Header
+
+The logic to gracefully handle version missmatch was not added to the opaqueprompts package until version 0.1.0. As such if you are using an older version of opaqueprompts you may see the following error:
+
+```
+Client-Version header not set, please ensure this request was sent using opaqueprompts version >= 0.1.0
+```
+
+If you see this then make sure to update your opaqueprompts package to the latest version per the instructions in the "Version Missmatch" section.
