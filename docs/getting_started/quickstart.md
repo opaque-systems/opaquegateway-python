@@ -58,7 +58,7 @@ OpaquePrompts offers a [LangChain](https://python.langchain.com/docs/get_started
 
 ## Troubleshooting
 
-### Version Missmatch
+### Version Mismatch
 
 OpaquePrompts is currently in a Beta stage and is constantly being improved. As such we sometimes must make breaking changes and drop support for the old versions of the python package. If this happens then you should see an error message like this when making a sanitize or desanitize call:
 
