@@ -66,7 +66,7 @@ OpaquePrompts is currently in beta and is constantly being improved. As such we 
 Request sent using package version 0.1.0, but minimum supported version is 0.2.0. Please update the opaqueprompts package to a supported version.
 ```
 
-If this happens, then simply reinstall opaqueprompts with `pip install -U opaqueprompts` and then you should be able to continue using the package without issue.
+If you see this, simply upgrade `opaqueprompts` with `pip install -U opaqueprompts` and then you should be able to continue using the package without issue.
 
 ### Missing Version Header
 
