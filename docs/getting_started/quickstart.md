@@ -70,7 +70,7 @@ If you see this, simply upgrade `opaqueprompts` with `pip install -U opaquepromp
 
 ### Missing Version Header
 
-The logic to gracefully handle version mismatch was not added to the opaqueprompts package until version 0.1.0. As such if you are using an older version of opaqueprompts you may see the following error:
+The logic to gracefully handle version mismatch was not added to the `opaqueprompts` package until version 0.1.0. As such, if you are using an older version of `opaqueprompts`, you may see the following error:
 
 ```
 Client-Version header not set, please ensure this request was sent using opaqueprompts version >= 0.1.0
