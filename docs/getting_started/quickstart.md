@@ -76,4 +76,4 @@ The logic to gracefully handle version mismatch was not added to the `opaqueprom
 Client-Version header not set, please ensure this request was sent using opaqueprompts version >= 0.1.0
 ```
 
-If you see this then make sure to update your opaqueprompts package to the latest version per the instructions in the "Version Mismatch" section.
+If you see this, make sure to update your `opaqueprompts` package to the latest version per the instructions in the "Version Mismatch" section.
