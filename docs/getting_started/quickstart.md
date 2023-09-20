@@ -60,7 +60,7 @@ OpaquePrompts offers a [LangChain](https://python.langchain.com/docs/get_started
 
 ### Version Mismatch
 
-OpaquePrompts is currently in a Beta stage and is constantly being improved. As such we sometimes must make breaking changes and drop support for the old versions of the python package. If this happens then you should see an error message like this when making a sanitize or desanitize call:
+OpaquePrompts is currently in beta and is constantly being improved. As such we might sometimes make breaking changes and drop support for old versions of the Python package. If this happens, you should see an error message like this when making a `sanitize` or `desanitize` call:
 
 ```
 Request sent using package version 0.1.0, but minimum supported version is 0.2.0. Please update the opaqueprompts package to a supported version.
