@@ -24,6 +24,8 @@ _session: Optional[requests.Session] = None
 # Protects the global requests session when creating it for the first time.
 _session_lock: threading.Lock = threading.Lock()
 
+SERVER_ATLS_ENV_VAR = "OPAQUEPROMPTS_CLIENT_ATLS_ENABLED"
+
 
 @dataclass
 class SanitizeResponse:
@@ -170,21 +172,28 @@ def _send_request_to_opaqueprompts_service(
     global _session
     global _session_lock
 
-    # This flag is used to disable aTLS for testing purposes.
-    # INTERNAL USE ONLY.
-    # It breaks the communication with the aTLS enabled server.
-    _client_atls_enabled = bool(
-        os.environ.get("OPAQUEPROMPTS_CLIENT_ATLS_ENABLED", True)
-    )
-    http_protocol = "httpa" if _client_atls_enabled else "http"
+    # TESTING USE ONLY!!!
+    # This environment variable is used to disable aTLS for testing purposes.
+    # If aTLS is disabled, this package will not be able to communicate with an
+    # aTLS-enabled endpoint.
+    atls_enabled_str: Union[None, str]
+    atls_enabled_str = os.environ.get(SERVER_ATLS_ENV_VAR)
+
+    if atls_enabled_str is None or atls_enabled_str.lower() == "true":
+        atls_enabled = True
+    elif atls_enabled_str.lower() == "false":
+        atls_enabled = False
+    else:
+        raise Exception(
+            f"Invalid value for {SERVER_ATLS_ENV_VAR}: {atls_enabled_str}"
+        )
+
+    scheme = "httpa" if atls_enabled else "http"
 
     with _session_lock:
         if _session is None:
             _session = requests.Session()
-            if _client_atls_enabled:
-                _session.mount(
-                    "httpa://", HTTPAAdapter(_get_default_validators())
-                )
+            _session.mount("httpa://", HTTPAAdapter(_get_default_validators()))
 
     api_key = get_api_key()
     hostname, port = get_server_config()
@@ -197,7 +206,7 @@ def _send_request_to_opaqueprompts_service(
         try:
             response = _session.request(
                 "POST",
-                f"{http_protocol}://{hostname}:{port}/{endpoint}",
+                f"{scheme}://{hostname}:{port}/{endpoint}",
                 headers={
                     "Authorization": f"Bearer {api_key}",
                     "Client-Version": metadata.version("opaqueprompts"),
