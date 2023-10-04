@@ -6,7 +6,7 @@ A technical overview on how OpaquePrompts leverages [confidential computing](htt
 
 ## Supported Entities
 
-Currently, the following entity types will be identified and sanitized:
+OpaquePrompts, for now, supports only the English language. Currently, the following entity types will be identified and sanitized:
 
 | **Type**                                                                                                                        | **Notes**                           |
 |---------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
