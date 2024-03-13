@@ -69,8 +69,8 @@ def sanitize(
     Returns
     -------
     SanitizeResponse
-        The anonymized version of `input_texts` without PII, and a secret entropy
-        value.
+        The anonymized version of `input_texts` without PII, and a secret
+        entropy value.
     """
     response = _send_request_to_opaqueprompts_service(
         endpoint="sanitize",
