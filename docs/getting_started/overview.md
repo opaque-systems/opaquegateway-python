@@ -1,12 +1,12 @@
 # Overview
 
-## Technical Overview
+## Technical overview
 
-A technical overview on how OpaquePrompts leverages [confidential computing](https://en.wikipedia.org/wiki/Confidential_computing) and [remote attestation](https://www.redhat.com/en/blog/attestation-confidential-computing) is coming soon.
+A technical overview on how Opaque Gateway leverages [confidential computing](https://en.wikipedia.org/wiki/Confidential_computing) and [remote attestation](https://www.redhat.com/en/blog/attestation-confidential-computing) is coming soon.
 
-## Supported Entities
+## Supported entities
 
-OpaquePrompts, for now, supports only the English language. Currently, the following entity types will be identified and sanitized:
+Opaque Gateway, for now, supports only the English language. The service identifies and sanitizes the following entity types:
 
 | **Type**                                                                                                                        | **Notes**                           |
 |---------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
@@ -24,5 +24,5 @@ OpaquePrompts, for now, supports only the English language. Currently, the follo
 | Names                                                                                                                           |                                     |
 | Passport numbers                                                                                                                | Supports US passports               |
 | Phone numbers                                                                                                                   |                                     |
-| Social security numbers (SSN)                                                                                                   | Supports US social security numbers |
+| Social security numbers (SSNs)                                                                                                  | Supports US SSNs                    |
 | URLs                                                                                                                            |                                     |
