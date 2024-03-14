@@ -38,4 +38,4 @@ Today's LLM application architectures often yield constructed prompts that may i
 </div>
 
 ## Get help
-Can't find what you're looking for? Contact us at [opaqueprompts@opaque.co](mailto:opaqueprompts@opaque.co).
+Can't find what you're looking for? Contact us at [opaquegateway@opaque.co](mailto:opaquegateway@opaque.co).
