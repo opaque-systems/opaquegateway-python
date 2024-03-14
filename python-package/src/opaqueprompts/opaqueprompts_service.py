@@ -1,6 +1,7 @@
 """
 This module exposes wrappers around API calls to the Opaque Gateway service.
 """
+
 import json
 import os
 import threading

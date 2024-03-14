@@ -1,6 +1,7 @@
 """
 This module handles authentication logic for the opaqueprompts package.
 """
+
 import os
 
 API_KEY_ENV_VAR = "OPAQUEPROMPTS_API_KEY"
