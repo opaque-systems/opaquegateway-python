@@ -1,6 +1,7 @@
 """
-This module exposes wrappers around API calls to the OpaquePrompts service.
+This module exposes wrappers around API calls to the Opaque Gateway service.
 """
+
 import json
 import os
 import threading
@@ -69,8 +70,8 @@ def sanitize(
     Returns
     -------
     SanitizeResponse
-        The anonymized version of input_texts without PII and a secret entropy
-        value.
+        The anonymized version of `input_texts` without PII, and a secret
+        entropy value.
     """
     response = _send_request_to_opaqueprompts_service(
         endpoint="sanitize",
@@ -121,7 +122,7 @@ def desanitize(
     Returns
     -------
     DesanitizeResponse
-        The deanonymzied version of sanitized_text with PII added back in.
+        The de-anonymized version of `sanitized_text` with PII added back in.
     """
     response = _send_request_to_opaqueprompts_service(
         endpoint="desanitize",

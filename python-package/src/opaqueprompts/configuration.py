@@ -1,6 +1,7 @@
 """
 This module handles configuration logic for the opaqueprompts package.
 """
+
 import os
 from typing import Tuple
 

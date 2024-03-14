@@ -11,6 +11,7 @@ ITINs
 LangChain
 LLM
 octicons
+opaquegateway
 OpaquePrompts
 opaqueprompts
 PII
@@ -18,5 +19,6 @@ quickstart
 Sanitization
 src
 SSN
+SSNs
 toc
 TODO
