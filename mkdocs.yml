@@ -1,8 +1,8 @@
 ---
 site_name: Opaque Gateway
-site_url: https://opaqueprompts.readthedocs.io/
-repo_url: https://github.com/opaque-systems/opaqueprompts-python/
-repo_name: opaque-systems/opaqueprompts-python
+site_url: https://opaquegateway.readthedocs.io/
+repo_url: https://github.com/opaque-systems/opaquegateway-python/
+repo_name: opaque-systems/opaquegateway-python
 copyright: >
   Copyright &copy; <a href="https://opaque.co/">Opaque Systems</a> 2024
 theme:
