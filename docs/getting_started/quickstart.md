@@ -20,7 +20,7 @@ Once you have your key, set it as an environment variable:
 export OPAQUEPROMPTS_API_KEY="..."
 ```
 
-For a custom or private deployment of Opaque Gateway, you can set the `OPAQUEPROMPTS_SERVER_HOSTNAME` environment variable to the URL or IP address of the deployment.
+For a custom or private deployment of Opaque Gateway, you can set the `OPAQUEPROMPTS_SERVER_HOSTNAME` environment variable to the domain (i.e., without the protocol, e.g. `https`) or IP address of the deployment.
 
 ```bash
 export OPAQUEPROMPTS_SERVER_HOSTNAME="..."
