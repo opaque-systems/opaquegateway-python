@@ -8,12 +8,22 @@ pip install opaqueprompts
 ```
 
 ## Environment setup
-Accessing the Opaque Gateway API requires an API key, which you can get by creating an account on the [Opaque Gateway](https://opaquegateway.opaque.co) website. Once you have an account, you can find your API key on the [API Key](https://opaquegateway.opaque.co/#/main/api/key) page.
+Accessing the Opaque Gateway API requires an API key, which you can get by either
+
+1. Creating an account on the [Opaque Gateway](https://opaquegateway.opaque.co) website. Once you have an account, you can find your API key on the [API Key](https://opaquegateway.opaque.co/#/main/api/key) page.
+
+1. Contacting us at `hello@opaque.co`.
 
 Once you have your key, set it as an environment variable:
 
 ```bash
 export OPAQUEPROMPTS_API_KEY="..."
+```
+
+For a custom or private deployment of Opaque Gateway, you can set the `OPAQUEPROMPTS_SERVER_HOSTNAME` environment variable to the URL or IP address of the deployment.
+
+```bash
+export OPAQUEPROMPTS_SERVER_HOSTNAME="..."
 ```
 
 ## Using Opaque Gateway standalone
