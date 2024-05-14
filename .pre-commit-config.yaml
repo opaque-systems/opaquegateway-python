@@ -43,6 +43,12 @@ repos:
     hooks:
       - id: yamllint
         args: [-c=.yaml-lint.yml]
+  - repo: https://github.com/getindata/py-pre-commit-hooks
+    rev: v0.2.0
+    hooks:
+      - id: pyspelling-docker
+        name: spellcheck
+        files: ^docs/
   - repo: local
     hooks:
       - id: sort-spelling-wordlist
