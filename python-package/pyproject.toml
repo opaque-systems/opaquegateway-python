@@ -1,6 +1,6 @@
 [project]
 name = "opaqueprompts"
-version = "0.1.1"
+version = "0.1.2"
 description = "The client-side SDK for OpaquePrompts, a privacy layer that enables applications to wrap external provider calls with a sanitization mechanism that hides sensitive inputs via an attested trusted execution environment."
 readme = "README.md"
 authors= [{ name = "Opaque Systems", email = "pypi@opaque.co" }]
@@ -13,7 +13,7 @@ classifiers = [
 ]
 keywords = ["confidential", "llm", "ai", "generative", "security", "privacy"]
 dependencies = [
-    "pyatls >= 0.0.5",
+    "pyatls >= 0.0.6",
     "requests >= 2.0",
 ]
 
