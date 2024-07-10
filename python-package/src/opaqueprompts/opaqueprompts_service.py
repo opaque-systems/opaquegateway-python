@@ -1,5 +1,6 @@
 """
 This module exposes wrappers around API calls to the Opaque Gateway service.
+This module is now deprecated, and has been included as an input guardrail.
 """
 
 import json
